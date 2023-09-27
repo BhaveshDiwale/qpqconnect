@@ -1,0 +1,16 @@
+.admin-detail-profile{
+  height: 58px;
+  width: 58px;
+  border-radius: 50px;
+}
+.profile-img{
+  height: 100px;
+  width: 100px;
+  border-radius: 50px;
+}
+@media (min-width: 992px) {
+  .desktop-card {
+    height: 260px;
+    overflow: hidden;
+  }
+}
