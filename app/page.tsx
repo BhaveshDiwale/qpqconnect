@@ -9,6 +9,8 @@ import HomeListing from "./components/home/HomeListing";
 import Image from "next/image";
 import BuyRequirement from "./components/home/BuyRequirement";
 import Footer from "./components/Footer";
+import NextBusinessOpportunity from "./components/home/NextBusinessOpportunity";
+import FeaturedSeller from "./components/home/FeaturedSeller";
 
 const Home = async () => {
   return (
@@ -24,11 +26,16 @@ const Home = async () => {
 
       <HomeBackground />
 
-      <div className="col-md-11 mx-auto">
-        <ClientOnly>
-          <Container>
-            <FindSellersByCity />
+      <ClientOnly>
+        <Container>
+          <div className="col-md-11 mx-auto">
+            <FeaturedSeller />
             <TrendingCategories />
+          </div>
+
+          <NextBusinessOpportunity />
+
+          <div className="col-md-11 mx-auto">
             <HomeListing />
 
             <div className="col-md-12 mx-auto mt-20">
@@ -39,12 +46,13 @@ const Home = async () => {
                 width={600} height={550}
               />
             </div>
+            <FindSellersByCity />
 
             <BuyRequirement />
+          </div>
 
-          </Container>
-        </ClientOnly>
-      </div>
+        </Container>
+      </ClientOnly>
       <Footer />
     </div>
   )

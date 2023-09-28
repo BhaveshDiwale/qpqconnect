@@ -74,6 +74,22 @@ export const SellersByCityList = [
         name: "Surat",
         icon: "/images/Surat.png"
     },
+    {
+        name: "Bangalore",
+        icon: "/images/bangalore.png"
+    },
+    {
+        name: "Delhi",
+        icon: "/images/delhi.png"
+    },
+    {
+        name: "Kolkata",
+        icon: "/images/Kolkata.png"
+    },
+    {
+        name: "Surat",
+        icon: "/images/Surat.png"
+    },
 ]
 
 export const manufacturers = [

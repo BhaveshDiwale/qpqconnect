@@ -27,7 +27,7 @@ const HomeBackground = () => {
                     </div>
 
                     <div className="d-flex justify-content-center h-100">
-                        <div className="searchbar col-lg-5 col-md-5 col-sm-9 col-12">
+                        <div className="searchbar col-lg-5 col-md-5 col-sm-9 col-10">
                             <input className="search_input col-lg-9 col-md-9 col-sm-9 col-8" type="text" name="" placeholder="Search..."
                                 style={{ width: "70%" }}
                             />
@@ -92,7 +92,7 @@ const useStyles = makeStyles((theme) => ({
             height: "440px", borderRadius: "0 0 50px 50px"
         },
         [theme.breakpoints.between("sm", "md")]: {
-            height: "400px", borderRadius: "0 0 50px 50px"
+            height: "540px", borderRadius: "0 0 50px 50px"
         },
         "@media (min-width: 1280px)": {
             height: "620px", borderRadius: "0 0 50px 50px"
