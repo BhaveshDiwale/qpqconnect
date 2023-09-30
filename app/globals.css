@@ -143,8 +143,9 @@ input.inputError::placeholder {
 }
 
 li .dashboard-text {
-  font-size: 18px;
-  font-weight: 400;
+  font-size: 28px;
+  font-weight: 500;
+  text-decoration: none;
   color: #FFF
 }
 
@@ -152,4 +153,7 @@ li .dashboard-text:hover {
   font-size: 18px;
   font-weight: 400;
   color: #000
+}
+.spantext{
+  text-decoration: none;
 }
