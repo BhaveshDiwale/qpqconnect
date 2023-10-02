@@ -51,7 +51,7 @@ export default function FindSellersByCity() {
                 >
                     {SellersByCityList.map((item, indx) => {
                         return (
-                            <SwiperSlide>
+                            <SwiperSlide key={indx}>
                                 <div className="col-md-12 col-lg-8 col-sm-12 col-10 my-2 mx-auto" key={indx}>
                                     <div className="mx-auto text-center items-center">
                                         <Image

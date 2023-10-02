@@ -9,8 +9,8 @@ import ClientOnly from './components/ClientOnly';
 import Footer from './components/Footer';
 
 export const metadata = {
-  title: 'Canmart',
-  description: 'Canmart Clone',
+  title: 'QPQ Connect',
+  description: 'QPQ Connect',
 }
 
 const font = Nunito({

@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from 'react';
+import React, {useState } from 'react';
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import './typeServices.scss'
 import Typography from "@mui/material/Typography";
@@ -8,11 +8,11 @@ import Sidebar from "../components/sidebar/Sidebar";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Image from 'next/image';
 
-const typeServices = () => {
+const TypeServices = () => {
     const [files, setFiles] = useState([]);
     const [dragging, setDragging] = useState(false);
     const [userName, setUserName] = useState("");
-
+  
     const handleDragOver = (e) => {
         e.preventDefault();
         setDragging(true);
@@ -222,4 +222,4 @@ const profilePicture: React.CSSProperties | undefined = {
 }
 
 
-export default typeServices;
+export default TypeServices;

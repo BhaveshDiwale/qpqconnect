@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Select, { components } from "react-select";
-import countries from "world-countries";
+// import countries from "world-countries";
+import { Countries } from "@/dummyData/Countries";
 
 const Option = (props: any) => (
     <div className="flex flex-row items-center p-2">
@@ -15,7 +16,7 @@ const Option = (props: any) => (
 );
 
 const CountrySelect2 = () => {
-    const [selectedCountry, setSelectedCountry] = useState(countries[0]);
+    const [selectedCountry, setSelectedCountry] = useState(Countries[0]);
 
     const handleChange = (value: any) => {
         setSelectedCountry(value);
@@ -28,7 +29,7 @@ const CountrySelect2 = () => {
     return (
         <Select
             value={selectedCountry}
-            options={countries}
+            options={Countries}
             onChange={handleChange}
             formatOptionLabel={(option: any) => (
                 <div className="flex flex-row items-center" style={{ width: "50px" }}>

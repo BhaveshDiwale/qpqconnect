@@ -26,7 +26,7 @@ export default function BusinessCard({ item }: BusinessCardProps) {
                 <div className='d-flex mx-auto'>
                     {item?.subImages?.map((itm: any, indx: number) => {
                         return (
-                            <div>
+                            <div key={itm}>
                                 <Image className="mx-4" key={indx}
                                     src={itm?.img}
                                     alt="Listing" width={68} height={68}

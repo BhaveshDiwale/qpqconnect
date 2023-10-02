@@ -21,8 +21,9 @@ export default function VerifyOTPPage() {
             setLoading(false);
             alert("Successfully Registered")
             router.push("/dashboard")
-        })
-    }, []);
+        }) 
+     
+    }, [otpVal, router]);
 
 
     const [error, setError] = useState(false);

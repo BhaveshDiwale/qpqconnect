@@ -31,7 +31,7 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 //     protein: number;
 // }
 
-function createData(product, id, customer, date, amount, method, status) {
+function createData(product: string, id: number, customer: string, date: string, amount: number, method: string, status: string) {
     return { product, id, customer, date, amount, method, status };
 }
 

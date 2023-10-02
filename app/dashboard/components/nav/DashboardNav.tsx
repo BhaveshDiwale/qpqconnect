@@ -6,6 +6,7 @@ import FullscreenExitOutlinedIcon from "@mui/icons-material/FullscreenExitOutlin
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 import ListOutlinedIcon from "@mui/icons-material/ListOutlined";
+import Image from "next/image";
 
 const DashboardNav = () => {
     return (
@@ -41,10 +42,12 @@ const DashboardNav = () => {
                         <ListOutlinedIcon className="icon" />
                     </div>
                     <div className="item">
-                        <img
+                        <Image
                             src="https://images.pexels.com/photos/941693/pexels-photo-941693.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
                             alt=""
                             className="avatar"
+                            width={100}
+                            height={100}
                         />
                     </div>
                 </div>
