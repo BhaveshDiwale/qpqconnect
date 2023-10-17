@@ -1,5 +1,4 @@
 import { Nunito } from 'next/font/google'
-
 import './globals.css'
 
 export const metadata = {
@@ -27,9 +26,9 @@ export default async function RootLayout({ children }) {
           // currentUser={currentUser}
           /> */}
         {/* </ClientOnly> */}
-        <div className="">
-          {children}
-        </div>
+        {/* <Provider store={store}> */}
+        {children}
+        {/* </Provider> */}
       </body>
     </html>
   )

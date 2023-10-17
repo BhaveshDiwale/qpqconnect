@@ -9,6 +9,8 @@ import { useRouter } from "next/navigation";
 import Sidebar from "./components/sidebar/Sidebar";
 import DashboardTable from "./components/table/DashboardTable";
 import DashBoardCard from "./components/card/dashBoardCard";
+import { Provider } from "react-redux";
+import store from '../redux/store';
 
 
 export default function ProfilePage() {

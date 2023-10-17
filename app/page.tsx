@@ -1,3 +1,5 @@
+'use client'
+
 import Script from "next/script";
 import ClientOnly from "./components/ClientOnly";
 import Container from "./components/Container";
@@ -11,6 +13,7 @@ import BuyRequirement from "./components/home/BuyRequirement";
 import Footer from "./components/Footer";
 import NextBusinessOpportunity from "./components/home/NextBusinessOpportunity";
 import FeaturedSeller from "./components/home/FeaturedSeller";
+
 
 const Home = async () => {
   return (

@@ -5,19 +5,34 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import WidgetsIcon from '@mui/icons-material/Widgets';
 import Link from "next/link";
 import Image from "next/image";
+import { useState } from "react";
 
 const Sidebar = () => {
+    const [dashboardWidth, setDashboardWidth] = useState(false)
+
+    function handleClick() {
+        setDashboardWidth(!dashboardWidth)
+    }
+
     return (
         <div className='pr-5 pl-2' style={{ backgroundColor: "#000" }}>
-            <div className="sidebar pr-5" style={{ backgroundColor: "#000", width: "250px" }}>
-                <div className="top">
-                    <Link href="/" style={{ textDecoration: "none" }}>
+            <div className="sidebar pr-5" style={{ backgroundColor: "#000", width: dashboardWidth ? "150px" : "260px" }}>
+                <div className="top mt-3">
+                    <Link href="/" className="pl-2">
                         <Image
-                            src="/images/logo.png"
+                            src="/svg/logo.svg"
                             alt="logo"
-                            width={150} height={24}
+                            width={110} height={40}
                         />
                     </Link>
+
+                    <button style={{ marginRight: "-20px" }} onClick={handleClick}>
+                        <Image
+                            src="/svg/indent-decrease.svg"
+                            alt="indent-decrease"
+                            width={28} height={28}
+                        />
+                    </button>
                 </div>
                 <hr />
                 <div className="center">
