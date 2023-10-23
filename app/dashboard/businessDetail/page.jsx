@@ -94,13 +94,24 @@ const BusinessDetail = () => {
                 <div className='shadow-sm rounded-xl mt-4 p-4'>
                     <div style={title}>Company media</div>
 
-                    <RenderPickerBox
-                        title="Photo"
-                        buttonText="Add Photo"
-                        files={files}
-                        setFiles={setFiles}
-                    />
-
+                    <div className='row mx-auto'>
+                        <div className='col-md-6 col-lg-6 col-sm-10 col-12 mx-auto pl-0'>
+                            <RenderPickerBox
+                                title="Photo"
+                                buttonText="Add Photo"
+                                files={files}
+                                setFiles={setFiles}
+                            />
+                        </div>
+                        <div className='col-md-6 col-lg-6 col-sm-10 col-12 mx-auto pr-0'>
+                            <RenderPickerBox
+                                title="Other Image"
+                                buttonText="Add Photo"
+                                files={files}
+                                setFiles={setFiles}
+                            />
+                        </div>
+                    </div>
                     <RenderPickerBox
                         title="Video"
                         buttonText="Add Video"

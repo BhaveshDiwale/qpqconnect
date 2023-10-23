@@ -3,8 +3,8 @@
 import React, { useState } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import Sidebar from "../components/sidebar/Sidebar";
-import Typography from "@mui/material/Typography";
 import './userManagement.scss';
+import UserListingTable from './components/UserListingTable';
 
 
 const UserManagement = () => {
@@ -15,6 +15,47 @@ const UserManagement = () => {
             <Sidebar />
             <div className='homeContainer px-5 py-3'>
                 <div style={title}>Welcome George</div>
+                <h4 style={subTitle} className='mt-4 pt-1'>Admin profile</h4>
+                <div className='col-12 col-md-12'>
+                    <div className='shadow-sm rounded-xl px-4 py-3 mt-2'>
+                        <form>
+                            <div className="form-group mb-2 pb-1">
+                                <label style={labelStyles}>User name</label>
+                                <input
+                                    type="text"
+                                    placeholder="Enter Name"
+                                    onChange={(e) => { setName(e.target.value) }}
+                                    style={inputStyle}
+                                    value={name}
+                                    className="form-control aboutInput"
+                                />
+                            </div>
+                            <div className="form-group mb-2 pb-1">
+                                <label style={labelStyles}>Mobile Number</label>
+                                <input
+                                    type="password"
+                                    placeholder="Password"
+                                    onChange={(e) => { setName(e.target.value) }}
+                                    style={inputStyle}
+                                    value={name}
+                                    className="form-control aboutInput"
+                                />
+                            </div>
+                            <div className="form-group mb-2 pb-1">
+                                <label style={labelStyles}>User Role</label>
+                                <input
+                                    type="text"
+                                    placeholder="Enter User Role"
+                                    onChange={(e) => { setName(e.target.value) }}
+                                    style={inputStyle}
+                                    value={name}
+                                    className="form-control aboutInput"
+                                />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
                 <h4 style={subTitle} className='mt-4 pt-1'>Add User</h4>
                 <div className='col-12 col-md-12'>
                     <div className='shadow-sm rounded-xl px-4 py-3 mt-2'>
@@ -66,6 +107,11 @@ const UserManagement = () => {
                         </form>
                     </div>
                 </div>
+
+                <div className="mt-4 pt-4">
+                    {/*<h5 className="fw-bold">All Inquiry</h5>*/}
+                    <UserListingTable />
+                </div>
             </div>
         </div>
     );
@@ -85,7 +131,7 @@ const subTitle = {
 
 const inputStyle = {
     border: "1px solid #E4E7E9",
-    fontSize: "14px",
+    fontSize: "13px",
     color: "#000",
     fontWeight: "600",
     borderRadius: "4px",
@@ -93,9 +139,9 @@ const inputStyle = {
 }
 
 const labelStyles = {
-    fontSize: "14px",
+    fontSize: "13px",
     color: "#777980",
-    fontWeight: "700",
+    fontWeight: "600",
 }
 
 export default UserManagement;

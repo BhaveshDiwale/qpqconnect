@@ -19,10 +19,17 @@ const Sidebar = () => {
             <div className="sidebar pr-5" style={{ backgroundColor: "#000", width: dashboardWidth ? "150px" : "260px" }}>
                 <div className="top mt-3">
                     <Link href="/" className="pl-2">
-                        <Image
+                        {/* <Image
                             src="/svg/logo.svg"
                             alt="logo"
                             width={110} height={40}
+                        /> */}
+                        <Image
+                            src="/images/qpq.png"
+                            className="h-full mr-3"
+                            width={34}
+                            height={34}
+                            alt="Flowbite Logo"
                         />
                     </Link>
 

@@ -4,34 +4,96 @@ import { useRouter } from "next/navigation";
 import Heading from "../components/Heading";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { getOTPService } from "../../apis/auth";
-import { toast } from "react-hot-toast";
 import Image from "next/image";
-import CountrySelect, { CountrySelectValue } from "../components/inputs/CountrySelect";
+import CountrySelect from "../components/inputs/CountrySelect";
 import { makeStyles } from "@material-ui/core";
+
+import { initializeApp } from "firebase/app";
+import { getAuth, signInWithPhoneNumber, RecaptchaVerifier } from "firebase/auth";
+import toast from "react-hot-toast";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyDNa6g4vGbPuStWN91cM0mFsBjLcglKjYg",
+    authDomain: "canmart-3b042.firebaseapp.com",
+    projectId: "canmart-3b042",
+    storageBucket: "canmart-3b042.appspot.com",
+    messagingSenderId: "648451992770",
+    appId: "1:648451992770:web:f2ac6a0f4faeaba0529f5b",
+    measurementId: "G-ZQ9W4J16J4"
+};
 
 export default function SignupPage() {
     const router = useRouter();
     const [email, setEmail] = React.useState("");
-    const [companyName, setCompanyName] = React.useState("");
+    const [name, setName] = React.useState("");
     const [phone, setPhone] = React.useState("");
     const [location, setLocation] = useState();
     const [loading, setLoading] = React.useState(false);
     const [error, setError] = useState(false);
+    const app = initializeApp(firebaseConfig);
+
+    function onCaptchVerify() {
+        const app = initializeApp(firebaseConfig);
+        if (!window.recaptchaVerifier) {
+            window.recaptchaVerifier = new RecaptchaVerifier(
+                getAuth(),
+                "recaptcha-container",
+                {
+                    size: "invisible",
+                    callback: (response) => {
+                        getOTPService();
+                    },
+                    "expired-callback": () => { },
+                    'appVerificationDisabledForTesting': false // Remove or set to false for production
+                },
+
+            );
+        }
+    }
+
+    const getOTPService = () => {
+        onCaptchVerify();
+
+        const appVerifier = window.recaptchaVerifier;
+
+        const formatPh = "+" + '91' + phone;
+
+        signInWithPhoneNumber(getAuth(), formatPh, appVerifier)
+            .then((confirmationResult) => {
+                // onRegisterSubmit()
+                setLoading(false);
+                console.log("Signup success", confirmationResult);
+                alert("OTP sent Successfully");
+                toast.success("Signup success");
+                router.push("/verifyOTP");
+            })
+            .catch((error) => {
+                setLoading(false);
+                console.log(error);
+            });
+    }
 
     const onRegisterSubmit = () => {
-        if (!phone && !email && !companyName) {
+        if (!phone && !email && !name) {
             setError(true);
             return;
         }
+        // console.log("00000000");
+        setLoading(true);
+
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+        // console.log("11111111");
 
         var urlencoded = new URLSearchParams();
-        urlencoded.append("mobile", phone);
-        urlencoded.append("first_name", companyName);
-        urlencoded.append("last_name", companyName);
-        urlencoded.append("email", email);
+        urlencoded.append("mobile", "9876543210");
+        urlencoded.append("name", "aman");
+        urlencoded.append("email", "a2a13xsn@ewe.e");
         urlencoded.append("country_code", "+91");
+        urlencoded.append("is_email", "true");
+        urlencoded.append("is_company", "true");
+        urlencoded.append("role", "Admin");
+        // console.log("22222222");
 
         var requestOptions = {
             method: 'POST',
@@ -39,24 +101,21 @@ export default function SignupPage() {
             body: urlencoded,
             redirect: 'follow'
         };
+        // console.log("33333333");
 
-        setLoading(true);
-        fetch("https://canada-mart.onrender.com/signup", requestOptions)
-            .then(response => response.json())
+        fetch("43.204.140.114:8036/signup", requestOptions)
+            .then(response => { console.log("44444444"); response.json() })
             .then(result => {
-                getOTPService(phone, (res) => {
-                    setLoading(false);
-                    console.log("Signup success", result);
-                    alert("OTP sent Successfully");
-                    toast.success("Signup success");
-                    router.push("/verifyOTP");
-                })
+                // console.log('====================================');
+                // console.log(result);
+                // console.log('====================================');
+                getOTPService()
             })
             .catch(error => {
                 setLoading(false);
                 console.log('error', error);
-                // callback(null)
             });
+        // console.log("55555555");
     }
 
     const styles = useStyles();
@@ -71,7 +130,15 @@ export default function SignupPage() {
                 }} className={styles.authBgImage} />
             </div>
             <div className={`col-lg-9 col-md-9 col-sm-12 col-12 mx-auto ${styles.paddingAtForm}`}>
+                <div id='recaptcha-container'></div>
                 <div style={{ position: "absolute", top: "28px", marginLeft: "-48px" }}>
+                    {/* <Image
+                        src="/images/qpq.png"
+                        className="h-full mr-3"
+                        width={40}
+                        height={40}
+                        alt="Flowbite Logo"
+                    /> */}
                     <Image
                         src="/svg/auth-logo.svg"
                         alt="auth-logo"
@@ -87,9 +154,9 @@ export default function SignupPage() {
                     <label style={error ? errorlabelStyles : labelStyles}>Company Name</label>
                     <input
                         type="text"
-                        value={companyName}
+                        value={name}
                         placeholder="Enter your name here"
-                        onChange={(e) => { setCompanyName(e.target.value) }}
+                        onChange={(e) => { setName(e.target.value) }}
                         style={error ? inputErrorStyle : inputStyle}
                         className={error ? "form-control inputError mt-1" : "form-control mt-1"}
                     />
@@ -127,7 +194,15 @@ export default function SignupPage() {
                         style={sendQueryBtn}
                         onClick={onRegisterSubmit}
                     >
-                        Create an account
+                        {!loading
+                            ? "Create an account"
+                            : <Image
+                                src="/gif/loading.gif"
+                                alt='loading'
+                                width={12} height={12}
+                                className="mx-auto"
+                                style={{ width: "12px", height: "12px" }}
+                            />}
                     </a>
 
                     <div style={DontHaveAccount} className="text-center">Already have an account ?
@@ -135,15 +210,7 @@ export default function SignupPage() {
                             className="btn"
                             style={registerWithUs}
                         >
-                            {!loading
-                                ? "Sign In"
-                                : <Image
-                                    src="/gif/loading.gif"
-                                    alt='loading'
-                                    width={12} height={12}
-                                    className="mx-auto"
-                                    style={{ width: "12px", height: "12px" }}
-                                />}
+                            Sign In
                         </a>
                     </div>
                 </form>

@@ -9,11 +9,18 @@ const Navbar = ({ text }) => {
     >
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-4 p-3">
         <a href="https://flowbite.com/" className="flex items-center">
-          <Image
+          {/* <Image
             src="/qpqpq.png"
             className="h-full mr-3"
             width={169}
             height={120}
+            alt="Flowbite Logo"
+          /> */}
+          <Image
+            src="/images/qpq.png"
+            className="h-full mr-3"
+            width={40}
+            height={40}
             alt="Flowbite Logo"
           />
           {/* <img src="https://flowbite.com/docs/images/logo.svg" className="h-8 mr-3" alt="Flowbite Logo" /> */}
