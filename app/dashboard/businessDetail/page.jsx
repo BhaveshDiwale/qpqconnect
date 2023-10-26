@@ -1,14 +1,52 @@
 "use client"
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import Sidebar from "../components/sidebar/Sidebar";
 import './businessDetail.scss'
 import Image from 'next/image';
+import { addTypeServiceAPI } from '../../../apis/API';
 
 const BusinessDetail = () => {
-    const [files, setFiles] = useState([]);
-    const [companyName, setCompanyName] = useState("")
+    const [companyName, setCompanyName] = useState("");
+    const [city, setCity] = useState("");
+    const [phone, setPhone] = useState("");
+    const [province, setProvince] = useState("");
+    const [address, setAddress] = useState("");
+    const [country, setCountry] = useState("");
+    const [photo, setPhoto] = useState([]);
+    const [otherImage, setOtherImage] = useState([]);
+    const [video, setVideo] = useState([]);
+
+    const handleSubmit = () => {
+        console.log("0000");
+        const data = {
+            companyName: companyName,
+            city: city,
+            phone: phone,
+            province: province,
+            address: address,
+            country: country,
+            photo: photo,
+            otherImage: otherImage,
+            video: video,
+        }
+        console.log("1111");
+        addTypeServiceAPI(data, (res) => {
+            console.log("2222");
+            if (res !== null) {
+                console.log("3333");
+                if (res?.success?.toString() === "true") {
+                    console.log("4444");
+                    alert("Data submitted successfully");
+                } else {
+                    console.log("5555");
+                }
+            } else {
+                console.log("6666");
+            }
+        });
+    }
 
     return (
         <div className='home'>
@@ -23,10 +61,10 @@ const BusinessDetail = () => {
                                     <label style={labelStyles}>Company Name</label>
                                     <input
                                         type="text"
+                                        value={companyName}
                                         placeholder="Type name here. . ."
                                         onChange={(e) => { setCompanyName(e.target.value) }}
                                         style={inputStyle}
-                                        value={companyName}
                                         className="form-control aboutInput"
                                     />
                                 </div>
@@ -34,10 +72,10 @@ const BusinessDetail = () => {
                                     <label style={labelStyles}>Phone Number</label>
                                     <input
                                         type="number"
+                                        value={phone}
                                         placeholder="Enter Phone Number"
-                                        onChange={(e) => { setCompanyName(e.target.value) }}
+                                        onChange={(e) => { setPhone(e.target.value) }}
                                         style={inputStyle}
-                                        value={companyName}
                                         className="form-control aboutInput"
                                     />
                                 </div>
@@ -45,9 +83,9 @@ const BusinessDetail = () => {
                                     <label style={labelStyles}>Address</label>
                                     <textarea
                                         placeholder="Type Here... "
-                                        onChange={(e) => { setCompanyName(e.target.value) }}
+                                        value={address}
+                                        onChange={(e) => { setAddress(e.target.value) }}
                                         style={textAreaInputStyle}
-                                        value={companyName}
                                         className="form-control aboutInput"
                                     />
                                 </div>
@@ -58,9 +96,9 @@ const BusinessDetail = () => {
                                     <input
                                         type="text"
                                         placeholder="Enter City Here"
-                                        onChange={(e) => { setCompanyName(e.target.value) }}
+                                        value={city}
+                                        onChange={(e) => { setCity(e.target.value) }}
                                         style={inputStyle}
-                                        value={companyName}
                                         className="form-control aboutInput"
                                     />
                                 </div>
@@ -69,9 +107,9 @@ const BusinessDetail = () => {
                                     <input
                                         type="text"
                                         placeholder="Lorem"
-                                        onChange={(e) => { setCompanyName(e.target.value) }}
+                                        value={province}
+                                        onChange={(e) => { setProvince(e.target.value) }}
                                         style={inputStyle}
-                                        value={companyName}
                                         className="form-control aboutInput"
                                     />
                                 </div>
@@ -79,10 +117,10 @@ const BusinessDetail = () => {
                                     <label style={labelStyles}>Country</label>
                                     <input
                                         type="text"
-                                        placeholder=""
-                                        onChange={(e) => { setCompanyName(e.target.value) }}
+                                        placeholder="Country"
+                                        value={country}
+                                        onChange={(e) => { setCountry(e.target.value) }}
                                         style={inputStyle}
-                                        value={companyName}
                                         className="form-control aboutInput"
                                     />
                                 </div>
@@ -99,26 +137,30 @@ const BusinessDetail = () => {
                             <RenderPickerBox
                                 title="Photo"
                                 buttonText="Add Photo"
-                                files={files}
-                                setFiles={setFiles}
+                                files={photo}
+                                setFiles={setPhoto}
                             />
                         </div>
                         <div className='col-md-6 col-lg-6 col-sm-10 col-12 mx-auto pr-0'>
                             <RenderPickerBox
                                 title="Other Image"
                                 buttonText="Add Photo"
-                                files={files}
-                                setFiles={setFiles}
+                                files={otherImage}
+                                setFiles={setOtherImage}
                             />
                         </div>
                     </div>
                     <RenderPickerBox
                         title="Video"
                         buttonText="Add Video"
-                        files={files}
-                        setFiles={setFiles}
+                        files={video}
+                        setFiles={setVideo}
                     />
                 </div>
+
+                <button className='btn btn-dark col-lg-12 col-md-12 col-sm-12 col-12 mx-auto py-3 mt-4' onClick={handleSubmit}>
+                    Submit
+                </button>
             </div>
         </div>
     )

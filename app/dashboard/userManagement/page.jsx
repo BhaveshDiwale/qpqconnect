@@ -1,14 +1,95 @@
 "use client"
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import Sidebar from "../components/sidebar/Sidebar";
 import './userManagement.scss';
 import UserListingTable from './components/UserListingTable';
+import { addUserAPI, getUserProfileAPI } from '../../../apis/API';
+
+import Select from 'react-select';
+
+const options = [
+    { value: 'manager', label: 'Manager' },
+    { value: 'user', label: 'User' },
+]
+
+export const groupStyles = {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+};
+
+export const groupBadgeStyles = {
+    backgroundColor: '#EBECF0',
+    borderRadius: '2em',
+    color: '#172B4D',
+    display: 'inline-block',
+    fontSize: 12,
+    fontWeight: 'normal',
+    lineHeight: '1',
+    minWidth: 1,
+    padding: '0.16666666666667em 0.5em',
+    textAlign: 'center',
+};
+
+export const formatGroupLabel = (data) => (
+    <div style={groupStyles}>
+        <span>{data.label}</span>
+        <span style={groupBadgeStyles}>{data.options.length}</span>
+    </div>
+);
 
 
 const UserManagement = () => {
     const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
+    const [role, setRole] = useState("");
+
+    const [userData, setUserData] = useState([]);
+
+    useEffect(() => {
+        getUserProfileAPI({}, (res) => {
+            if (res !== null) {
+                if (res?.status?.toString() === "true") {
+                    setUserData(res?.data[0]);
+                } else if (res?.status?.toString() === "false") {
+                    alert(res?.message?.toString());
+                } else {
+                    alert("Something went wrong");
+                }
+            }
+        })
+    }, []);
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (!name && !email && !phone && !role) {
+            return alert("Please select all fields")
+        }
+
+        const data = {
+            name: name,
+            email: email,
+            phone: phone,
+            role: role,
+        }
+
+        addUserAPI(data, (res) => {
+            if (res !== null) {
+                if (res?.status?.toString() === "true" || res?.status?.toString() === "false") {
+                    alert(res?.message?.toString());
+                    setName("");
+                    setEmail("");
+                    setPhone("");
+                    setRole("");
+                } else {
+                    alert("Something went wrong");
+                }
+            }
+        })
+    }
 
     return (
         <div className='home'>
@@ -24,20 +105,20 @@ const UserManagement = () => {
                                 <input
                                     type="text"
                                     placeholder="Enter Name"
-                                    onChange={(e) => { setName(e.target.value) }}
+                                    onChange={(e) => { }}
                                     style={inputStyle}
-                                    value={name}
+                                    value={userData?.name}
                                     className="form-control aboutInput"
                                 />
                             </div>
                             <div className="form-group mb-2 pb-1">
                                 <label style={labelStyles}>Mobile Number</label>
                                 <input
-                                    type="password"
-                                    placeholder="Password"
-                                    onChange={(e) => { setName(e.target.value) }}
+                                    type="number"
+                                    placeholder="Mobile Number"
+                                    onChange={(e) => { }}
                                     style={inputStyle}
-                                    value={name}
+                                    value={userData?.mobile}
                                     className="form-control aboutInput"
                                 />
                             </div>
@@ -46,9 +127,9 @@ const UserManagement = () => {
                                 <input
                                     type="text"
                                     placeholder="Enter User Role"
-                                    onChange={(e) => { setName(e.target.value) }}
+                                    onChange={(e) => { }}
                                     style={inputStyle}
-                                    value={name}
+                                    value={userData?.role}
                                     className="form-control aboutInput"
                                 />
                             </div>
@@ -76,9 +157,9 @@ const UserManagement = () => {
                                 <input
                                     type="email"
                                     placeholder="Enter email"
-                                    onChange={(e) => { setName(e.target.value) }}
+                                    onChange={(e) => { setEmail(e.target.value) }}
                                     style={inputStyle}
-                                    value={name}
+                                    value={email}
                                     className="form-control aboutInput"
                                 />
                             </div>
@@ -87,29 +168,60 @@ const UserManagement = () => {
                                 <input
                                     type="password"
                                     placeholder="Password"
-                                    onChange={(e) => { setName(e.target.value) }}
+                                    onChange={(e) => { setPhone(e.target.value) }}
                                     style={inputStyle}
-                                    value={name}
+                                    value={phone}
                                     className="form-control aboutInput"
                                 />
                             </div>
+
                             <div className="form-group mb-2 pb-1">
                                 <label style={labelStyles}>User Role</label>
-                                <input
-                                    type="text"
-                                    placeholder="Enter User Role"
-                                    onChange={(e) => { setName(e.target.value) }}
-                                    style={inputStyle}
-                                    value={name}
-                                    className="form-control aboutInput"
+                                <Select
+                                    onChange={(e) => setRole(e?.value)}
+                                    options={options}
+                                    formatGroupLabel={formatGroupLabel}
+                                    placeholder="Role"
+                                    defaultValue={role}
+                                    styles={{
+                                        input: (base) => ({
+                                            ...base,
+                                            fontSize: "13px",
+                                            color: "#000",
+                                            fontWeight: "600",
+                                        }),
+                                        menu: (base) => ({
+                                            ...base,
+                                            fontSize: "13px",
+                                        }),
+                                        container: (base) => ({
+                                            width: "100%",
+                                            border: "1px solid #E4E7E9",
+                                            borderRadius: "4px",
+                                            backgroundColor: "#F9F9FC",
+                                            fontSize: "13px",
+                                        }),
+                                        control: (base) => ({
+                                            ...base,
+                                            // width: "100%",
+                                            border: "0px",
+                                            // borderRadius: "4px",
+                                            backgroundColor: "#F9F9FC",
+                                            height: "24px",
+                                            // fontSize: "13px",
+                                        }),
+                                    }}
                                 />
                             </div>
+
+                            <button className='btn btn-dark col-lg-12 col-md-12 col-sm-12 col-12 mx-auto py-3 mt-2' onClick={handleSubmit}>
+                                Submit
+                            </button>
                         </form>
                     </div>
                 </div>
 
                 <div className="mt-4 pt-4">
-                    {/*<h5 className="fw-bold">All Inquiry</h5>*/}
                     <UserListingTable />
                 </div>
             </div>
@@ -135,7 +247,8 @@ const inputStyle = {
     color: "#000",
     fontWeight: "600",
     borderRadius: "4px",
-    backgroundColor: "#F9F9FC"
+    backgroundColor: "#F9F9FC",
+    height: "38px"
 }
 
 const labelStyles = {

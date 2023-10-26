@@ -1,6 +1,6 @@
 "use client"
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './UserListingTable.scss';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -11,6 +11,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import "bootstrap/dist/css/bootstrap.min.css";
 import Typography from "@mui/material/Typography";
+import { getCompanyUserListAPI } from '../../../../apis/API';
 
 
 const rows = [
@@ -52,6 +53,22 @@ const rows = [
 ];
 
 const UserListingTable = () => {
+    const [companyUsersList, setCompanyUsersList] = useState([]);
+
+    useEffect(() => {
+        getCompanyUserListAPI({}, (res) => {
+            if (res !== null) {
+                if (res?.status?.toString() === "true") {
+                    setCompanyUsersList(res?.data?.result);
+                } else if (res?.status?.toString() === "false") {
+                    alert(res?.message?.toString());
+                } else {
+                    alert("Something went wrong");
+                }
+            }
+        })
+    }, []);
+
     return (
         <TableContainer component={Paper} className="table rounded">
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -69,16 +86,18 @@ const UserListingTable = () => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {rows.map((row) => (
+                    {companyUsersList.map((row) => (
                         <TableRow key={row.id} style={{ border: "0" }}>
                             <TableCell className="tableCell">
                                 <div className="cellWrapper">
-                                    <img src={row.img} alt="" className="image" />
+                                    {row?.image
+                                        ? <img src={row.img} alt="" className="image" />
+                                        : <img src="https://m.media-amazon.com/images/I/71wF7YDIQkL._AC_UY327_FMwebp_QL65_.jpg" alt="" className="image" />}
                                 </div>
                             </TableCell>
-                            <TableCell className="tableCell text-center">{row.customer}</TableCell>
+                            <TableCell className="tableCell text-center">{row.name}</TableCell>
                             <TableCell className="tableCell text-center">{row.role}</TableCell>
-                            <TableCell className="tableCell text-center">{row.phone}</TableCell>
+                            <TableCell className="tableCell text-center">{row.mobile}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>

@@ -95,7 +95,7 @@ const Sidebar = () => {
                             </li>
                         </Link>
                         <p className="title mt-4 pt-2 text-white" style={{ fontSize: 11, fontWeight: "400" }}>Product</p>
-                        <Link href="/products" style={{ textDecoration: "none" }}>
+                        <Link href="/dashboard/addProduct" style={{ textDecoration: "none" }}>
                             <li className='mb-2 dashboard-item'>
                                 <AddCircleOutlineIcon className="icon" style={{ color: "#FFF" }} />
                                 <span className="text-white dashboard-text my-1" style={{ fontSize: 15, fontWeight: "400" }}>
