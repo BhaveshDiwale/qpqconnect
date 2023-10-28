@@ -245,3 +245,38 @@ export async function getCompanyUserListAPI(data: any, callback: Function) {
         callback(null);
     }
 }
+
+
+export async function addProductAPI(data: any, callback: Function) {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+    var urlencoded = new URLSearchParams();
+    urlencoded.append("name", data?.productName);
+    urlencoded.append("description", data?.description);
+    urlencoded.append("price", data?.description);
+    urlencoded.append("quantity", "1");
+    urlencoded.append("is_product", "1");
+    urlencoded.append("parent_category_id", data?.parentCategory);
+    urlencoded.append("user_id", "2");
+    urlencoded.append("child_category_id", data?.subCategory);
+    urlencoded.append("product_code", data?.productCode);
+    urlencoded.append("delivery_time", data?.deliveryTime);
+
+    try {
+        const res = await fetch('http://43.204.140.114:8036/addProducts', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: urlencoded,
+        })
+
+        const data = await res.json();
+        callback(data);
+        console.log('\n\n addProductAPI success: ', data);
+    } catch (error) {
+        console.log('\n\n addProductAPI error: ', error);
+        callback(null);
+    }
+}
