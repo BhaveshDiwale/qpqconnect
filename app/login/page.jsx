@@ -73,7 +73,6 @@ export default function LoginPage() {
     }
 
     const onLoginApiCalled = () => {
-        const router = useRouter();
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
