@@ -81,7 +81,7 @@ export function addBusinessDetailsAPI(data: any, callback: Function) {
 
     try {
         console.log("1111111");
-        fetch('http://43.204.140.114:8036/addBusinessDetail', {
+        fetch('http://65.1.148.252:8036/addBusinessDetail', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -117,7 +117,7 @@ export async function addUserAPI(data: any, callback: Function) {
     urlencoded.append("role", data?.role);
 
     try {
-        const res = await fetch('http://43.204.140.114:8036/signup', {
+        const res = await fetch('http://65.1.148.252:8036/signup', {
             method: 'POST',
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
@@ -143,7 +143,7 @@ export async function getUserProfileAPI(data: any, callback: Function) {
     urlencoded.append("user_id", "39");
 
     try {
-        const res = await fetch('http://43.204.140.114:8036/getUserProfile', {
+        const res = await fetch('http://65.1.148.252:8036/getUserProfile', {
             method: 'POST',
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
@@ -175,7 +175,7 @@ export async function addTypeServiceAPI(data: any, callback: Function) {
     urlencoded.append("start_time", "10:00 PM")
 
     try {
-        const res = await fetch('http://43.204.140.114:8036/addTypeService', {
+        const res = await fetch('http://65.1.148.252:8036/addTypeService', {
             method: 'POST',
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
@@ -203,7 +203,7 @@ export async function addTaxInformationAPI(data: any, callback: Function) {
     urlencoded.append("issued_date", data?.issueDate);
 
     try {
-        const res = await fetch('http://43.204.140.114:8036/addTaxInformation', {
+        const res = await fetch('http://65.1.148.252:8036/addTaxInformation', {
             method: 'POST',
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
@@ -229,7 +229,7 @@ export async function getCompanyUserListAPI(data: any, callback: Function) {
     urlencoded.append("user_id", "38");
 
     try {
-        const res = await fetch('http://43.204.140.114:8036/getCompanyUserList', {
+        const res = await fetch('http://65.1.148.252:8036/getCompanyUserList', {
             method: 'POST',
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
@@ -264,7 +264,7 @@ export async function addProductAPI(data: any, callback: Function) {
     urlencoded.append("delivery_time", data?.deliveryTime);
 
     try {
-        const res = await fetch('http://43.204.140.114:8036/addProducts', {
+        const res = await fetch('http://65.1.148.252:8036/addProducts', {
             method: 'POST',
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
