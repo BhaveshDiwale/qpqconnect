@@ -9,6 +9,7 @@ import { makeStyles } from "@material-ui/core";
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithPhoneNumber, RecaptchaVerifier } from "firebase/auth";
 import toast from "react-hot-toast";
+import VerifyOTP from "./components/VerifyOTP";
 
 
 // Your web app's Firebase configuration
@@ -31,6 +32,8 @@ export default function LoginPage() {
     const [useEmail, setUseEmail] = useState(false);
     const [error, setError] = useState(false);
     const app = initializeApp(firebaseConfig);
+    const [codeResult, setCodeResult] = useState({});
+    const [showOtpForm, setShowOtpForm] = useState(false);
 
     function onCaptchVerify() {
         const app = initializeApp(firebaseConfig);
@@ -65,47 +68,14 @@ export default function LoginPage() {
 
         signInWithPhoneNumber(getAuth(), formatPh, appVerifier)
             .then((confirmationResult) => {
-                onLoginApiCalled()
+                window.confirmationResult = confirmationResult;
+                setShowOtpForm(true);
+                setLoading(false);
+                setCodeResult(confirmationResult)
             })
             .catch((error) => {
-                console.log(error);
-            });
-    }
-
-    const onLoginApiCalled = () => {
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-
-        var urlencoded = new URLSearchParams();
-        urlencoded.append("mobile", phone);
-
-        var requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: urlencoded,
-            redirect: 'follow'
-        };
-
-        fetch("https://canada-mart.onrender.com/login", requestOptions)
-            .then(response => response.json())
-            .then(result => {
                 setLoading(false);
-                // console.log('====================================');
-                // console.log(typeof result?.status);
-                // console.log('====================================');
-                if (result?.status?.toString() === "true") {
-                    console.log("Login success", res);
-                    toast.success("Login success");
-                    alert("Login Success");
-                    router.push("/verifyOTP");
-                } else {
-                    console.log("Login failed", res);
-                    toast.error("Login failed");
-                }
-            })
-            .catch(error => {
-                console.log("Login failed", error.message);
-                toast.error(error.message);
+                console.log(error);
             });
     }
 
@@ -115,7 +85,7 @@ export default function LoginPage() {
         <>
             <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
-            <div className="row mx-auto">
+            {!showOtpForm ? <div className="row mx-auto">
                 <div className="col-lg-3 col-md-3 col-sm-0 col-0 mx-auto p-0">
                     <div style={{
                         backgroundImage: "url('/svg/authbg.svg')",
@@ -216,7 +186,7 @@ export default function LoginPage() {
                         </div>
                     </form>
                 </div>
-            </div>
+            </div> : <VerifyOTP codeResult={codeResult} phone={phone} />}
             <div style={{ marginBottom: "-30px" }} />
         </>
     );

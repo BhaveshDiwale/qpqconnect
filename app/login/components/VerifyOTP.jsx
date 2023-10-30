@@ -1,108 +1,34 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import Heading from "../components/Heading";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { getOTPService } from "../../apis/auth";
 import { toast } from "react-hot-toast";
 import Image from "next/image";
 import { makeStyles } from "@material-ui/core";
-import { RecaptchaVerifier, getAuth, signInWithPhoneNumber } from "firebase/auth";
-import { initializeApp } from "firebase/app";
-import { firebaseConfig } from "../../firebase/firebaseConfig";
+import Heading from "../../../app/components/Heading";
+import { BASEURL } from "../../../apis/API";
+import { setCookie } from "cookies-next";
 
-// const handleSubmit = useCallback((e: any) => {
-//     e.preventDefault();
-//     setLoading(true);
-//     compareOTPService(phone, otpVal, () => {
-//         setLoading(false);
-//         alert("Successfully Registered")
-//         router.push("/dashboard")
-//     }) 
-
-// }, [otpVal, router]);
-
-export default function VerifyOTPPage() {
+export default function VerifyOTP({ codeResult, phone }) {
     const router = useRouter();
     const [loading, setLoading] = React.useState(false);
     const [otpVal, setOTPVal] = React.useState("");
-    const phone = router?.query;
-    const confirmationResult = router?.query?.confirmationResult;
-
     const [error, setError] = useState(false);
 
     const styles = useStyles();
 
-    // function onCaptchVerify() {
-    //     const app = initializeApp(firebaseConfig);
-    //     if (!window.recaptchaVerifier) {
-    //         window.recaptchaVerifier = new RecaptchaVerifier(
-    //             getAuth(),
-    //             "recaptcha-container",
-    //             {
-    //                 size: "invisible",
-    //                 callback: (response) => {
-    //                     otpSubmit();
-    //                 },
-    //                 "expired-callback": () => { },
-    //                 'appVerificationDisabledForTesting': false // Remove or set to false for production
-    //             },
-    //         );
-    //     }
-    // }
+    function codeVerify() {
+        setLoading(true);
+        codeResult.confirm(otpVal).then(function () {
+            console.log('OTP Verified');
+            onLoginApiCalled();
+        }).catch(function () {
+            console.log('OTP Not correct');
+            setLoading(false);
+        })
+    }
 
-    // const opSignInSubmit = () => {
-    //     setLoading(true);
-    //     onCaptchVerify();
-
-    //     const appVerifier = window.recaptchaVerifier;
-    //     const formatPh = "+" + '91' + phone;
-
-    //     signInWithPhoneNumber(getAuth(), formatPh, appVerifier)
-    //         .then((confirmationResult) => {
-    //             setLoading(false);
-    //             toast.success("Login success");
-    //             alert("OTP sent Successfully");
-    //             // router.push("/verifyOTP", { query: { phone: phone, confirmationResult: confirmationResult } });
-    //         })
-    //         .catch((error) => {
-    //             setLoading(false);
-    //             console.log(error);
-    //         });
-    // }
-
-    const otpSubmit = (e) => {
-        e.preventDefault();
-        // setLoading(true);
-        // onCaptchVerify()
-
-        let opt_number = otpVal;
-        router.push("/dashboard");
-
-        // try {
-        //     confirmationResult
-        //         .confirm(opt_number)
-        //         .then((confirmationResult) => {
-        //             setLoading(false);
-        //             console.log(confirmationResult);
-        //             onLoginSubmit()
-        //         })
-        //         .catch((error) => {
-        //             // User couldn't sign in (bad verification code?)
-        //             setLoading(false);
-        //             console.log(error.message);
-        //         });
-        // } catch (error) {
-        //     setLoading(false);
-        //     console.log(error.message);
-        // }
-    };
-
-    const onLoginSubmit = () => {
-        if (!phone) {
-            setError(true);
-            return;
-        }
+    const onLoginApiCalled = () => {
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
@@ -116,28 +42,27 @@ export default function VerifyOTPPage() {
             redirect: 'follow'
         };
 
-        setLoading(true);
-        getOTPService(phone, (res) => {
-            fetch("https://canada-mart.onrender.com/login", requestOptions)
-                .then(response => response.json())
-                .then(result => {
+        fetch(BASEURL + "login", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                if (result?.status?.toString() === "true") {
+                    // setLoading(false);
+                    setCookie('userData', result.data);
+                    toast.success("Login success");
+                    alert("Login Success");
+                    console.log("Login success", result?.data);
+                    router.push("/dashboard");
+                } else {
+                    console.log("Login failed", result);
+                    toast.error("Login failed");
                     setLoading(false);
-                    if (result?.status?.toString() === "true") {
-                        console.log("Login success", res);
-                        toast.success("Login success");
-                        alert("Login success");
-                        router.push("/dashboard");
-                    } else {
-                        console.log("Login failed", res);
-                        toast.error("Login failed");
-                    }
-                })
-                .catch(error => {
-                    setLoading(false);
-                    console.log("Login failed", error.message);
-                    toast.error(error.message);
-                });
-        })
+                }
+            })
+            .catch(error => {
+                console.log("Login failed: ", error.message);
+                toast.error(error.message);
+                setLoading(false);
+            });
     }
 
     return (
@@ -185,7 +110,7 @@ export default function VerifyOTPPage() {
                     <a
                         className="btn col-md-12 col-sm-6 col-12 mt-3"
                         style={sendQueryBtn}
-                        onClick={otpSubmit}
+                        onClick={codeVerify}
                     >
                         {!loading
                             ? "Verify"
@@ -198,34 +123,14 @@ export default function VerifyOTPPage() {
                             />}
                     </a>
 
-                    {/* <div style={DontHaveAccount} className="text-center">
-                        <a onClick={() => { router.push("/login"); }}
-                            className="btn"
-                            style={registerWithUs}
-                        >
-                            Change Phone number
-                        </a>
-                    </div> */}
-
                     <a onClick={() => { router.push("/login"); }}
-                        // onClick={(e) => { e.preventDefault(); setUseEmail(!useEmail) }}
                         className="btn btn-link mt-2"
                         style={loginWithEmail}
                     >
                         Change Phone number
-                        {/* Login with {useEmail ? "phone" : "email"} */}
                     </a>
                 </form>
             </div>
-            {/* <div className="col-lg-6 col-md-6 col-sm-0 col-0">
-                    <Image
-                        src="/images/auth-bg.png"
-                        width={400} height={400}
-                        alt="auth-bg"
-                        className="col-lg-12 col-md-12 col-sm-0 col-0"
-                        style={{ height: "570px" }}
-                    />
-                </div> */}
         </div>
     );
 }

@@ -1,7 +1,25 @@
 import Image from "next/image";
 import Link from "next/link";
+import { getCookie, setCookie } from "cookies-next";
+import { useRouter } from "next/navigation";
 
 const Navbar = ({ text }) => {
+  const router = useRouter();
+  const userData = getCookie("userData");
+
+  const handleLogout = () => {
+    setCookie('userData', null);
+    router.push("/login")
+  }
+
+  const isCurrentUser = () => {
+    if (userData && userData !== undefined) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   return (
     <nav
       className="border-gray-200 dark:bg-gray-900"
@@ -51,47 +69,37 @@ const Navbar = ({ text }) => {
         </button>
 
         <div className="hidden w-full md:block md:w-auto" id="navbar-default">
-          <div className="flex justify-center items-center space-x-10">
-            <div className="">
-              <Link href="./login" className="flex space-x-3 spantext items-center ">
-                <div className="">
-                  <Image src="/svg/login.svg" width={20} height={20} alt="Profile Icon" className="" />
-                </div>
+          {isCurrentUser()
+            ? <div className="flex justify-center items-center space-x-10">
+              <Link href="/login" className="flex space-x-3 spantext items-center " onClick={handleLogout}>
+                <Image src="/svg/logout.svg" width={16} height={16} alt="Profile Icon" />
                 <div>
-                  <span className=" text-[20px] text-white font-semibold">
+                  <span className="text-[16px] text-white font-semibold">
+                    Logout
+                  </span>
+                </div>
+              </Link>
+              <div>
+                <Link href="/dashboard" className="hover:bg-[#858282] flex space-x-3 bg-white spantext text-[16px] font-semibold text-black rounded-full px-4 py-2 items-center">
+                  Dashboard
+                </Link>
+              </div>
+            </div>
+            : <div className="flex justify-center items-center space-x-10">
+              <Link href="/login" className="flex space-x-3 spantext items-center ">
+                <Image src="/svg/login.svg" width={20} height={20} alt="Profile Icon" className="" />
+                <div>
+                  <span className="text-[16px] text-white font-semibold">
                     Login
                   </span>
                 </div>
-
               </Link>
-            </div>
-            <div>
-              <Link href="./signup" className="hover:bg-[#858282] flex space-x-3 bg-white spantext text-[20px] font-semibold text-black rounded-full px-4 py-2 items-center">
-                Signup
-
-              </Link>
-            </div>
-          </div>
-          {/* <ul className="font-medium flex flex-col px-4 md:p-0 mt-2 md:flex-row md:space-x-8 md:mt-0">
-          <li className="">  
-              <Link
-                href="./login"
-                className={`block py-2 pl-3 pr-4 ${text}  bg-blue-700  rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500`}
-                
-              >
-                Login
-              </Link>
-            
-            </li>
-            <li className="bg-white rounded-full px-3 text-gray-950">  <Link
-                href="./signup"
-                className={`block py-2 pl-3 pr-4 text-black  bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500`}
-                
-              >
-                Signup
-              </Link></li>
-           
-          </ul> */}
+              <div>
+                <Link href="/signup" className="hover:bg-[#858282] flex space-x-3 bg-white spantext text-[16px] font-semibold text-black rounded-full px-4 py-2 items-center">
+                  Signup
+                </Link>
+              </div>
+            </div>}
         </div>
       </div>
     </nav>

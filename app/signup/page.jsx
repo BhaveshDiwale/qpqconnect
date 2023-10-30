@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Heading from "../components/Heading";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { getOTPService } from "../../apis/auth";
 import Image from "next/image";
 import CountrySelect from "../components/inputs/CountrySelect";
 import { makeStyles } from "@material-ui/core";
@@ -11,6 +10,7 @@ import { makeStyles } from "@material-ui/core";
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithPhoneNumber, RecaptchaVerifier } from "firebase/auth";
 import toast from "react-hot-toast";
+import VerifyOTPSignUp from "./components/VerifyOTPSignUp";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDNa6g4vGbPuStWN91cM0mFsBjLcglKjYg",
@@ -31,6 +31,8 @@ export default function SignupPage() {
     const [loading, setLoading] = React.useState(false);
     const [error, setError] = useState(false);
     const app = initializeApp(firebaseConfig);
+    const [codeResult, setCodeResult] = useState({});
+    const [showOtpForm, setShowOtpForm] = useState(false);
 
     function onCaptchVerify() {
         const app = initializeApp(firebaseConfig);
@@ -51,7 +53,12 @@ export default function SignupPage() {
         }
     }
 
-    const getOTPService = () => {
+    const getOTPService = (event) => {
+        if (!phone) {
+            setError(true);
+            return;
+        }
+        setLoading(true);
         onCaptchVerify();
 
         const appVerifier = window.recaptchaVerifier;
@@ -60,12 +67,10 @@ export default function SignupPage() {
 
         signInWithPhoneNumber(getAuth(), formatPh, appVerifier)
             .then((confirmationResult) => {
-                // onRegisterSubmit()
+                window.confirmationResult = confirmationResult;
+                setShowOtpForm(true);
                 setLoading(false);
-                console.log("Signup success", confirmationResult);
-                alert("OTP sent Successfully");
-                toast.success("Signup success");
-                router.push("/verifyOTP");
+                setCodeResult(confirmationResult)
             })
             .catch((error) => {
                 setLoading(false);
@@ -73,158 +78,108 @@ export default function SignupPage() {
             });
     }
 
-    const onRegisterSubmit = () => {
-        if (!phone && !email && !name) {
-            setError(true);
-            return;
-        }
-        // console.log("00000000");
-        setLoading(true);
-
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-        // console.log("11111111");
-
-        var urlencoded = new URLSearchParams();
-        urlencoded.append("mobile", "9876543210");
-        urlencoded.append("name", "aman");
-        urlencoded.append("email", "a2a13xsn@ewe.e");
-        urlencoded.append("country_code", "+91");
-        urlencoded.append("is_email", "true");
-        urlencoded.append("is_company", "true");
-        urlencoded.append("role", "Admin");
-        // console.log("22222222");
-
-        var requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: urlencoded,
-            redirect: 'follow'
-        };
-        // console.log("33333333");
-
-        fetch("43.204.140.114:8036/signup", requestOptions)
-            .then(response => { console.log("44444444"); response.json() })
-            .then(result => {
-                // console.log('====================================');
-                // console.log(result);
-                // console.log('====================================');
-                getOTPService()
-            })
-            .catch(error => {
-                setLoading(false);
-                console.log('error', error);
-            });
-        // console.log("55555555");
-    }
-
     const styles = useStyles();
 
     return (
-        <div className="row mx-auto">
-            <div className="col-lg-3 col-md-3 col-sm-0 col-0 mx-auto p-0">
-                <div style={{
-                    backgroundImage: "url('/svg/authbg.svg')",
-                    backgroundSize: "cover",
-                    backgroundRepeat: "no-repeat",
-                }} className={styles.authBgImage} />
-            </div>
-            <div className={`col-lg-9 col-md-9 col-sm-12 col-12 mx-auto ${styles.paddingAtForm}`}>
-                <div id='recaptcha-container'></div>
-                <div style={{ position: "absolute", top: "28px", marginLeft: "-48px" }}>
-                    {/* <Image
+        <>
+            <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+            {!showOtpForm ? <div className="row mx-auto">
+                <div className="col-lg-3 col-md-3 col-sm-0 col-0 mx-auto p-0">
+                    <div style={{
+                        backgroundImage: "url('/svg/authbg.svg')",
+                        backgroundSize: "cover",
+                        backgroundRepeat: "no-repeat",
+                    }} className={styles.authBgImage} />
+                </div>
+                <div className={`col-lg-9 col-md-9 col-sm-12 col-12 mx-auto ${styles.paddingAtForm}`}>
+                    <div id='recaptcha-container'></div>
+                    <div style={{ position: "absolute", top: "28px", marginLeft: "-48px" }}>
+                        {/* <Image
                         src="/images/qpq.png"
                         className="h-full mr-3"
                         width={40}
                         height={40}
                         alt="Flowbite Logo"
                     /> */}
-                    <Image
-                        src="/svg/auth-logo.svg"
-                        alt="auth-logo"
-                        width={120} height={50}
-                    />
-                </div>
-                <form className="mt-24 col-lg-6 col-md-10 col-sm-10 col-12 mx-auto shadow-sm p-5 rounded-2xl">
-                    <Heading
-                        title="Sign In"
-                        subtitle="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-                    />
-
-                    <label style={error ? errorlabelStyles : labelStyles}>Company Name</label>
-                    <input
-                        type="text"
-                        value={name}
-                        placeholder="Enter your name here"
-                        onChange={(e) => { setName(e.target.value) }}
-                        style={error ? inputErrorStyle : inputStyle}
-                        className={error ? "form-control inputError mt-1" : "form-control mt-1"}
-                    />
-
-                    <label style={error ? errorlabelStyles : labelStyles}>Mobile Number</label>
-                    <div className="d-flex mt-1">
-                        <CountrySelect
-                            value={location}
-                            onChange={(value) => {
-                                setLocation(value)
-                            }}
+                        <Image
+                            src="/svg/auth-logo.svg"
+                            alt="auth-logo"
+                            width={120} height={50}
                         />
+                    </div>
+                    <form className="mt-24 col-lg-6 col-md-10 col-sm-10 col-12 mx-auto shadow-sm p-5 rounded-2xl">
+                        <Heading
+                            title="Sign In"
+                            subtitle="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+                        />
+
+                        <label style={error ? errorlabelStyles : labelStyles}>Company Name</label>
                         <input
                             type="text"
-                            value={phone}
-                            placeholder="+91"
-                            onChange={(e) => { setPhone(e.target.value); setError(false) }}
+                            value={name}
+                            placeholder="Enter your name here"
+                            onChange={(e) => { setName(e.target.value) }}
                             style={error ? inputErrorStyle : inputStyle}
-                            className={error ? "form-control ml-2 inputError" : "form-control ml-2"}
+                            className={error ? "form-control inputError mt-1" : "form-control mt-1"}
                         />
-                    </div>
 
-                    <label style={error ? errorlabelStyles : labelStyles}>Email</label>
-                    <input
-                        type="text"
-                        value={email}
-                        placeholder="Enter your email address here"
-                        onChange={(e) => { setEmail(e.target.value) }}
-                        style={error ? inputErrorStyle : inputStyle}
-                        className={error ? "form-control inputError mt-1" : "form-control mt-1"}
-                    />
+                        <label style={error ? errorlabelStyles : labelStyles}>Mobile Number</label>
+                        <div className="d-flex mt-1">
+                            <CountrySelect
+                                value={location}
+                                onChange={(value) => {
+                                    setLocation(value)
+                                }}
+                            />
+                            <input
+                                type="text"
+                                value={phone}
+                                placeholder="+91"
+                                onChange={(e) => { setPhone(e.target.value); setError(false) }}
+                                style={error ? inputErrorStyle : inputStyle}
+                                className={error ? "form-control ml-2 inputError" : "form-control ml-2"}
+                            />
+                        </div>
 
-                    <a
-                        className="btn col-md-12 col-sm-12 col-12 mt-3"
-                        style={sendQueryBtn}
-                        onClick={onRegisterSubmit}
-                    >
-                        {!loading
-                            ? "Create an account"
-                            : <Image
-                                src="/gif/loading.gif"
-                                alt='loading'
-                                width={12} height={12}
-                                className="mx-auto"
-                                style={{ width: "12px", height: "12px" }}
-                            />}
-                    </a>
+                        <label style={error ? errorlabelStyles : labelStyles}>Email</label>
+                        <input
+                            type="text"
+                            value={email}
+                            placeholder="Enter your email address here"
+                            onChange={(e) => { setEmail(e.target.value) }}
+                            style={error ? inputErrorStyle : inputStyle}
+                            className={error ? "form-control inputError mt-1" : "form-control mt-1"}
+                        />
 
-                    <div style={DontHaveAccount} className="text-center">Already have an account ?
-                        <a onClick={() => { router.push("/login"); }}
-                            className="btn"
-                            style={registerWithUs}
+                        <a
+                            className="btn col-md-12 col-sm-12 col-12 mt-3"
+                            style={sendQueryBtn}
+                            onClick={getOTPService}
                         >
-                            Sign In
+                            {!loading
+                                ? "Create an account"
+                                : <Image
+                                    src="/gif/loading.gif"
+                                    alt='loading'
+                                    width={12} height={12}
+                                    className="mx-auto"
+                                    style={{ width: "12px", height: "12px" }}
+                                />}
                         </a>
-                    </div>
-                </form>
-            </div>
-            {/* <div className="col-lg-6 col-md-7 col-sm-0 col-0 p-0 mx-auto">
-                    <Image
-                        src="/images/signup_bg.avif"
-                        width={400} height={400}
-                        alt="auth-bg"
-                        className="col-lg-12 col-md-12 col-sm-0 col-0"
-                        style={{ height: "570px" }}
-                    />
-                </div> */}
-        </div>
+
+                        <div style={DontHaveAccount} className="text-center">Already have an account ?
+                            <a onClick={() => { router.push("/login"); }}
+                                className="btn"
+                                style={registerWithUs}
+                            >
+                                Sign In
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div> : <VerifyOTPSignUp codeResult={codeResult} phone={phone} name={name} email={email} />}
+        </>
     );
 }
 

@@ -1,39 +1,14 @@
 "use client";
 
 import "./dashboard.scss";
-import axios from "axios";
-import React, { useState } from "react";
-import { toast } from "react-hot-toast";
+import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useRouter } from "next/navigation";
 import Sidebar from "./components/sidebar/Sidebar";
 import DashboardTable from "./components/table/DashboardTable";
 import DashBoardCard from "./components/card/dashBoardCard";
-import { Provider } from "react-redux";
-import store from '../redux/store';
 
 
 export default function ProfilePage() {
-    const router = useRouter()
-    const [data, setData] = useState("nothing");
-    const [tabs, setTabs] = useState("last-week")
-    const logout = async () => {
-        try {
-            // await axios.get('/api/users/logout')
-            toast.success('Logout successful')
-            router.push('/login')
-        } catch (error) {
-            console.log(error.message);
-            toast.error(error.message)
-        }
-    }
-
-    const getUserDetails = async () => {
-        const res = await axios.get('/api/users/me')
-        console.log(res.data);
-        setData(res.data.data._id)
-    }
-
     return (
         <div className='home' >
             <Sidebar />

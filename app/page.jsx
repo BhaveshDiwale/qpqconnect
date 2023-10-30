@@ -14,8 +14,7 @@ import Footer from "./components/Footer";
 import NextBusinessOpportunity from "./components/home/NextBusinessOpportunity";
 import FeaturedSeller from "./components/home/FeaturedSeller";
 
-
-const Home = async () => {
+const Home = () => {
   return (
     <div>
       <link
