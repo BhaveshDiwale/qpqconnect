@@ -111,7 +111,12 @@ export default function VerifyOTPSignUp({ codeResult, phone, name, email }) {
                     >
                         {!loading
                             ? "Verify"
-                            : <CircularProgress />}
+                            : <CircularProgress
+                                size={18}
+                                thickness={5}
+                                color="#fff"
+                                className="mt-1"
+                            />}
                     </a>
 
                     <a onClick={() => { router.push("/login"); }}

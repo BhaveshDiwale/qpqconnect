@@ -8,7 +8,7 @@ import { makeStyles } from "@material-ui/core";
 
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithPhoneNumber, RecaptchaVerifier } from "firebase/auth";
-import { CircularProgress } from '@mui/material';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import VerifyOTP from "./components/VerifyOTP";
 
 
@@ -153,14 +153,19 @@ export default function LoginPage() {
                         </div>
 
                         <a
-                            className="btn col-md-12 col-sm-12 col-12 mt-3 py-3"
+                            className="btn col-md-12 col-sm-12 col-12 mt-3 py-2"
                             style={sendQueryBtn}
                             onClick={getOTPService}
                             id="sign-in-button"
                         >
                             {!loading
                                 ? "Sign In"
-                                : <CircularProgress />}
+                                : <CircularProgress
+                                    size={18}
+                                    thickness={5}
+                                    color="#fff"
+                                    className="mt-1"
+                                />}
                         </a>
 
                         <button onClick={(e) => { e.preventDefault(); setUseEmail(!useEmail) }}
@@ -219,7 +224,7 @@ const inputErrorStyle = {
 const sendQueryBtn = {
     padding: "9px",
     borderRadius: "4px",
-    fontSize: "18px",
+    fontSize: "14px",
     fontWeight: "700",
     color: "#FFF",
     paddingTop: "12px",

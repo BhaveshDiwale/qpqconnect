@@ -1,15 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
-import { getCookie, setCookie } from "cookies-next";
+import { getCookie, setCookie, deleteCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 
 const Navbar = ({ text }) => {
   const router = useRouter();
   const userData = getCookie("userData");
 
+  console.log("\n\n Userdata in navbar: ", userData);
+
   const handleLogout = () => {
-    setCookie('userData', undefined);
-    router.refresh();
+    deleteCookie('userData');
+    // router.refresh();
   }
 
   const isCurrentUser = () => {
