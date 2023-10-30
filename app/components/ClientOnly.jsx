@@ -1,6 +1,8 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { Provider as ReduxProvider } from "react-redux";
+import Store from '../redux/store';
 
 const ClientOnly = ({
   children
@@ -14,9 +16,9 @@ const ClientOnly = ({
   if (!hasMounted) return null;
 
   return (
-    <>
+    <ReduxProvider store={Store}>
       {children}
-    </>
+    </ReduxProvider>
   );
 };
 

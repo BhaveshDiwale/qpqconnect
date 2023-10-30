@@ -1,11 +1,12 @@
 "use client"
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import Sidebar from "../components/sidebar/Sidebar";
 import './businessDetail.scss'
 import Image from 'next/image';
-import { addTypeServiceAPI } from '../../../apis/API';
+import { addBusinessDetailsAPI } from '../../../apis/API';
+import { getCookie } from "cookies-next";
 
 const BusinessDetail = () => {
     const [companyName, setCompanyName] = useState("");
@@ -17,9 +18,11 @@ const BusinessDetail = () => {
     const [photo, setPhoto] = useState([]);
     const [otherImage, setOtherImage] = useState([]);
     const [video, setVideo] = useState([]);
+    const userData = getCookie("userData");
+
+    console.log("\n\n User info fetched: ", userData);
 
     const handleSubmit = () => {
-        console.log("0000");
         const data = {
             companyName: companyName,
             city: city,
@@ -30,20 +33,19 @@ const BusinessDetail = () => {
             photo: photo,
             otherImage: otherImage,
             video: video,
+            userId: userData?.id,
+            role: userData?.role,
+            email: userData?.email,
         }
-        console.log("1111");
-        addTypeServiceAPI(data, (res) => {
-            console.log("2222");
+        addBusinessDetailsAPI(data, (res) => {
             if (res !== null) {
-                console.log("3333");
                 if (res?.success?.toString() === "true") {
-                    console.log("4444");
                     alert("Data submitted successfully");
                 } else {
-                    console.log("5555");
+                    alert(res?.message);
                 }
             } else {
-                console.log("6666");
+                alert("Something went wrong. Please try again")
             }
         });
     }
