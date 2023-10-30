@@ -119,9 +119,9 @@ export async function addBusinessDetailsAPI(data: any, callback: Function) {
             },
             body: urlencoded,
         })
-
-        const data = await res.json();
-        callback(data)
+        // const res={}; 
+        // const data = await res.json();
+        callback("data")
         console.log('\n\n addBusinessDetailsAPI success: ', data);
     } catch (error) {
         console.log('\n\n addBusinessDetailsAPI error: ', error)
