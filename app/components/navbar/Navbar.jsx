@@ -8,8 +8,8 @@ const Navbar = ({ text }) => {
   const userData = getCookie("userData");
 
   const handleLogout = () => {
-    setCookie('userData', null);
-    router.push("/login")
+    setCookie('userData', undefined);
+    router.refresh();
   }
 
   const isCurrentUser = () => {

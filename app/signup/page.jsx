@@ -9,7 +9,7 @@ import { makeStyles } from "@material-ui/core";
 
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithPhoneNumber, RecaptchaVerifier } from "firebase/auth";
-import toast from "react-hot-toast";
+import { CircularProgress } from '@mui/material';
 import VerifyOTPSignUp from "./components/VerifyOTPSignUp";
 
 const firebaseConfig = {
@@ -159,13 +159,7 @@ export default function SignupPage() {
                         >
                             {!loading
                                 ? "Create an account"
-                                : <Image
-                                    src="/gif/loading.gif"
-                                    alt='loading'
-                                    width={12} height={12}
-                                    className="mx-auto"
-                                    style={{ width: "12px", height: "12px" }}
-                                />}
+                                : <CircularProgress />}
                         </a>
 
                         <div style={DontHaveAccount} className="text-center">Already have an account ?

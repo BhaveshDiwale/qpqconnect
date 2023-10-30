@@ -8,6 +8,7 @@ import { makeStyles } from "@material-ui/core";
 import Heading from "../../../app/components/Heading";
 import { onSignupApiCalled } from "../../../apis/API";
 import { setCookie } from "cookies-next";
+import { CircularProgress } from '@mui/material';
 
 export default function VerifyOTPSignUp({ codeResult, phone, name, email }) {
     const router = useRouter();
@@ -110,13 +111,7 @@ export default function VerifyOTPSignUp({ codeResult, phone, name, email }) {
                     >
                         {!loading
                             ? "Verify"
-                            : <Image
-                                src="/gif/loading.gif"
-                                alt='loading'
-                                width={12} height={12}
-                                className="mx-auto"
-                                style={{ width: "12px", height: "12px" }}
-                            />}
+                            : <CircularProgress />}
                     </a>
 
                     <a onClick={() => { router.push("/login"); }}

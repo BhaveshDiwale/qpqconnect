@@ -8,7 +8,7 @@ import { makeStyles } from "@material-ui/core";
 
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithPhoneNumber, RecaptchaVerifier } from "firebase/auth";
-import toast from "react-hot-toast";
+import { CircularProgress } from '@mui/material';
 import VerifyOTP from "./components/VerifyOTP";
 
 
@@ -160,13 +160,7 @@ export default function LoginPage() {
                         >
                             {!loading
                                 ? "Sign In"
-                                : <Image
-                                    src="/gif/loading.gif"
-                                    alt='loading'
-                                    width={12} height={12}
-                                    className="mx-auto"
-                                    style={{ width: "12px", height: "12px" }}
-                                />}
+                                : <CircularProgress />}
                         </a>
 
                         <button onClick={(e) => { e.preventDefault(); setUseEmail(!useEmail) }}
