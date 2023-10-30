@@ -100,18 +100,28 @@ export async function addBusinessDetailsAPI(data: any, callback: Function) {
     urlencoded.append("country", data?.country);
     urlencoded.append("logo", "dsd");
     urlencoded.append("images", "");
+    console.log("9999");
+
+    var requestOptions: RequestInit = {
+        method: 'POST',
+        headers: myHeaders,
+        body: urlencoded,
+        redirect: 'follow'
+    };
+    console.log("1010");
 
     try {
-        const res = await fetch(BASEURL + 'addBusinessDetail', {
+        console.log("1111111");
+        fetch('http://43.204.140.114:8036/addBusinessDetail', {
             method: 'POST',
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
             },
             body: urlencoded,
         })
-
-        const data = await res.json();
-        callback(data)
+        // const res={}; 
+        // const data = await res.json();
+        callback("data")
         console.log('\n\n addBusinessDetailsAPI success: ', data);
     } catch (error) {
         console.log('\n\n addBusinessDetailsAPI error: ', error)
