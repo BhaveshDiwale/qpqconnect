@@ -9,7 +9,7 @@ import { makeStyles } from "@material-ui/core";
 
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithPhoneNumber, RecaptchaVerifier } from "firebase/auth";
-import { CircularProgress } from '@mui/material';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import VerifyOTPSignUp from "./components/VerifyOTPSignUp";
 
 const firebaseConfig = {
@@ -159,7 +159,12 @@ export default function SignupPage() {
                         >
                             {!loading
                                 ? "Create an account"
-                                : <CircularProgress />}
+                                : <CircularProgress
+                                    size={18}
+                                    thickness={5}
+                                    color="#fff"
+                                    className="mt-1"
+                                />}
                         </a>
 
                         <div style={DontHaveAccount} className="text-center">Already have an account ?

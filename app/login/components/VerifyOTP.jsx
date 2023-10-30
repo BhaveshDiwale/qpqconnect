@@ -8,7 +8,7 @@ import { makeStyles } from "@material-ui/core";
 import Heading from "../../../app/components/Heading";
 import { BASEURL } from "../../../apis/API";
 import { setCookie } from "cookies-next";
-import { CircularProgress } from '@mui/material';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 export default function VerifyOTP({ codeResult, phone }) {
     const router = useRouter();
