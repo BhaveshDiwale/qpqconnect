@@ -22,9 +22,11 @@ export default function VerifyOTPSignUp({ codeResult, phone, name, email }) {
         setLoading(true);
         codeResult.confirm(otpVal).then(function () {
             console.log('OTP Verified');
+            alert("OTP Verified")
             handleSubmit();
         }).catch(function () {
             console.log('OTP Not correct');
+            alert('OTP Not correct');
             setLoading(false);
         })
     }
@@ -52,11 +54,12 @@ export default function VerifyOTPSignUp({ codeResult, phone, name, email }) {
                     router.push("/dashboard");
                 } else {
                     console.log("SignUp failed", result);
-                    toast.error("SignUp failed");
+                    alert(result?.message);
                     setLoading(false);
                 }
             } else {
-                console.log("Login failed");
+                console.log("Signup failed");
+                alert("Signup failed");
                 setLoading(false);
             }
         })

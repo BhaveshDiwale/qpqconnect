@@ -185,7 +185,7 @@ export default function LoginPage() {
                         </div>
                     </form>
                 </div>
-            </div> : <VerifyOTP codeResult={codeResult} phone={phone} />}
+            </div> : <VerifyOTP codeResult={codeResult} phone={phone} setShowOtpForm={setShowOtpForm} />}
             <div style={{ marginBottom: "-30px" }} />
         </>
     );

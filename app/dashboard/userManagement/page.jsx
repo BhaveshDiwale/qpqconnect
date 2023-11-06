@@ -8,6 +8,7 @@ import UserListingTable from './components/UserListingTable';
 import { addUserAPI, getUserProfileAPI } from '../../../apis/API';
 
 import Select from 'react-select';
+import { getCookie } from 'cookies-next';
 
 const options = [
     { value: 'manager', label: 'Manager' },
@@ -46,11 +47,12 @@ const UserManagement = () => {
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
     const [role, setRole] = useState("");
+    const currentUserData = getCookie("userData");
 
     const [userData, setUserData] = useState([]);
 
     useEffect(() => {
-        getUserProfileAPI({}, (res) => {
+        getUserProfileAPI({ userId: JSON.parse(currentUserData)?.id }, (res) => {
             if (res !== null) {
                 if (res?.status?.toString() === "true") {
                     setUserData(res?.data[0]);
@@ -166,8 +168,8 @@ const UserManagement = () => {
                             <div className="form-group mb-2 pb-1">
                                 <label style={labelStyles}>Mobile Number</label>
                                 <input
-                                    type="password"
-                                    placeholder="Password"
+                                    type="number"
+                                    placeholder="Mobile Number"
                                     onChange={(e) => { setPhone(e.target.value) }}
                                     style={inputStyle}
                                     value={phone}

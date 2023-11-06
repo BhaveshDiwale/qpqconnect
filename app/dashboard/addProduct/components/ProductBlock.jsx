@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import DashboardDropdown from '../../../components/inputs/DashboardDropdown';
 import Image from 'next/image';
 import { addProductAPI } from '../../../../apis/API';
+import { getCookie } from 'cookies-next';
 
 const options = [
     { value: 'manager', label: 'Manager' },
@@ -21,6 +22,7 @@ export default function ProductBlock() {
     const [subCategory, setSubCategory] = useState("");
     const [productCode, setProductCode] = useState("");
     const [paymentOptions, setPaymentOptions] = useState("");
+    const currentUserData = getCookie("userData");
 
     const handleSubmit = () => {
         if (!productName && !description && !basePrice && !supplyAbility && !deliveryTime && !parentCategory && !subCategory) {
@@ -38,11 +40,15 @@ export default function ProductBlock() {
             subCategory: subCategory,
             productCode: productCode,
             paymentOptions: paymentOptions,
+            quantity: "1",
+            userId: JSON.parse(currentUserData)?.id,
         }
         addProductAPI(data, (res) => {
             if (res !== null) {
                 if (res?.success?.toString() === "true") {
                     alert("Data submitted successfully");
+                } else {
+                    alert(res?.message);
                 }
             }
         });

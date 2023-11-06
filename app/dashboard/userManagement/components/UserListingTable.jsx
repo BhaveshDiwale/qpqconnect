@@ -10,8 +10,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import "bootstrap/dist/css/bootstrap.min.css";
-import Typography from "@mui/material/Typography";
 import { getCompanyUserListAPI } from '../../../../apis/API';
+import { getCookie } from 'cookies-next';
 
 
 const rows = [
@@ -54,9 +54,13 @@ const rows = [
 
 const UserListingTable = () => {
     const [companyUsersList, setCompanyUsersList] = useState([]);
+    const currentUserData = getCookie("userData");
 
     useEffect(() => {
-        getCompanyUserListAPI({}, (res) => {
+        getCompanyUserListAPI({ userId: JSON.parse(currentUserData)?.id }, (res) => {
+            console.log('====================================');
+            console.log(res);
+            console.log('====================================');
             if (res !== null) {
                 if (res?.status?.toString() === "true") {
                     setCompanyUsersList(res?.data?.result);

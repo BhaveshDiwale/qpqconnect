@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { toast } from "react-hot-toast";
 import Image from "next/image";
 import { makeStyles } from "@material-ui/core";
 import Heading from "../../../app/components/Heading";
@@ -10,7 +9,7 @@ import { BASEURL } from "../../../apis/API";
 import { setCookie } from "cookies-next";
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-export default function VerifyOTP({ codeResult, phone }) {
+export default function VerifyOTP({ codeResult, phone, setShowOtpForm }) {
     const router = useRouter();
     const [loading, setLoading] = React.useState(false);
     const [otpVal, setOTPVal] = React.useState("");
@@ -22,9 +21,11 @@ export default function VerifyOTP({ codeResult, phone }) {
         setLoading(true);
         codeResult.confirm(otpVal).then(function () {
             console.log('OTP Verified');
+            alert("OTP Verified")
             onLoginApiCalled();
         }).catch(function () {
             console.log('OTP Not correct');
+            alert('OTP Not correct');
             setLoading(false);
         })
     }
@@ -49,19 +50,18 @@ export default function VerifyOTP({ codeResult, phone }) {
                 if (result?.status?.toString() === "true") {
                     // setLoading(false);
                     setCookie('userData', result.data);
-                    toast.success("Login success");
                     alert("Login Success");
                     console.log("Login success", result?.data);
                     router.push("/dashboard");
                 } else {
                     console.log("Login failed", result);
-                    toast.error("Login failed");
+                    alert(result?.message);
                     setLoading(false);
                 }
             })
             .catch(error => {
                 console.log("Login failed: ", error.message);
-                toast.error(error.message);
+                alert(error.message);
                 setLoading(false);
             });
     }
@@ -123,12 +123,12 @@ export default function VerifyOTP({ codeResult, phone }) {
                             />}
                     </a>
 
-                    <a onClick={() => { router.push("/login"); }}
+                    {/* <a onClick={() => { setShowOtpForm(false); router.refresh(); }}
                         className="btn btn-link mt-2"
                         style={loginWithEmail}
                     >
                         Change Phone number
-                    </a>
+                    </a> */}
                 </form>
             </div>
         </div>

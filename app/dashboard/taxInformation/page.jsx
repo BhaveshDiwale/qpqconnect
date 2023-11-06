@@ -5,10 +5,12 @@ import './taxInformation.scss'
 import Sidebar from "../components/sidebar/Sidebar";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { addTaxInformationAPI } from '../../../apis/API';
+import { getCookie } from 'cookies-next';
 
 const TaxInformation = () => {
     const [businessNumber, setBusinessNumber] = useState("");
     const [issueDate, setIssueDate] = useState("");
+    const currentUserData = getCookie("userData");
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -19,6 +21,7 @@ const TaxInformation = () => {
         const data = {
             businessNumber: businessNumber,
             issueDate: issueDate,
+            userId: JSON.parse(currentUserData)?.id
         }
         addTaxInformationAPI(data, (res) => {
             if (res !== null) {

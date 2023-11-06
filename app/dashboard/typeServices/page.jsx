@@ -5,7 +5,7 @@ import './typeServices.scss'
 import Sidebar from "../components/sidebar/Sidebar";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { addTypeServiceAPI } from '../../../apis/API';
-import { formatGroupLabel } from '../userManagement/page';
+import { getCookie } from 'cookies-next';
 
 import Select from 'react-select';
 
@@ -34,7 +34,6 @@ const timeOptions = [
 const TypeServices = () => {
     const [businessTypes, setBusinessTypes] = useState("");
     const [modeOfPayments, setModeOfPayments] = useState("");
-    const [workingDays, setWorkingDays] = useState("");
     const [startDay, setStartDay] = useState("");
     const [endDay, setEndDay] = useState("");
     const [startTime, setStartTime] = useState("");
@@ -42,6 +41,7 @@ const TypeServices = () => {
     const [excludeBusinessCities, setExcludeBusinessCities] = useState("");
     const [includeBusinessCities, setIncludeBusinessCities] = useState("");
     const [companyDescription, setCompanyDescription] = useState("");
+    const currentUserData = getCookie("userData");
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -60,10 +60,14 @@ const TypeServices = () => {
         const data = {
             businessTypes: businessTypes,
             modeOfPayments: modeOfPayments,
-            workingDays: workingDays,
+            startDay: startDay,
+            endDay: endDay,
+            startTime: startTime,
+            endTime: endTime,
             excludeBusinessCities: excludeBusinessCities,
             includeBusinessCities: includeBusinessCities,
             companyDescription: companyDescription,
+            userId: JSON.parse(currentUserData)?.id
         }
         addTypeServiceAPI(data, (res) => {
             if (res !== null) {
@@ -71,7 +75,10 @@ const TypeServices = () => {
                     alert(res?.message?.toString());
                     setBusinessTypes("");
                     setModeOfPayments("");
-                    setWorkingDays("");
+                    setStartDay("");
+                    setEndDay("");
+                    setStartTime("");
+                    setEndTime("");
                     setExcludeBusinessCities("");
                     setIncludeBusinessCities("");
                     setCompanyDescription("");
