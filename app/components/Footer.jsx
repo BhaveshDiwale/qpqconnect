@@ -1,45 +1,85 @@
+import Image from 'next/image'
 import { footerLinks } from '../../dummyData/dummyData'
 import Link from 'next/link'
 import React from 'react'
 
+const socialList = [
+    {
+        icon: "/svg/Facebook.svg",
+        nav: ""
+    },
+    {
+        icon: "/svg/Instagram.svg",
+        nav: ""
+    },
+    {
+        icon: "/svg/Twiter.svg",
+        nav: ""
+    },
+    {
+        icon: "/svg/Youtube.svg",
+        nav: ""
+    },
+]
+
 const Footer = () => {
     return (
-        <footer className='flex flex-col text-black-100 mt-5 py-5 bg-black' style={{ marginBottom: "-10px" }}>
+        <footer className='flex flex-col text-black-100 mt-5 py-5' style={{ marginBottom: "-10px", backgroundColor: "#EEEEEE" }}>
             <div className='d-flex max-md:flex-col sm:px-16 px-6 py-5'>
-                <div className='col-lg-3'>
-                    <h1 className='text-white'>LOGO</h1>
-                    {/* <Image
-                        src="/logo.svg"
-                        alt="logo"
-                        width={118}
-                        height={18}
-                        className='object-contain'
-                    /> */}
-                    <p className='text-base text-white mt-4'>
-                        Canmart 2023 <br />
-                        All rights reserved &copy;
-                    </p>
-                </div>
-
-                <div className='col-lg-9'>
-                    <div className='row text-white'>
+                <div className='col-lg-1'></div>
+                <div className='col-lg-8'>
+                    <div className='row text-black'>
                         {footerLinks.map((link) => (
-                            <div key={link.title} className='footer__link col-md-3 col-11 mx-auto mt-3'>
-                                <h6 className='bold text-sm' style={{ fontSize: "20px", fontWeight: "700" }}>
+                            <div key={link.title} className='footer__link col-md-3 col-11 mx-auto mt-0'>
+                                <h6 className='bold text-sm' style={{ fontSize: "18px", fontWeight: "800" }}>
                                     {link.title}
                                 </h6>
                                 {link.links.map((item) => (
                                     <Link
                                         key={item.title}
                                         href={item.url}
-                                        className='text-white my-1'
-                                        style={{ fontSize: "18px", fontWeight: "300", textDecoration: "none" }}
+                                        className='text-black my-0'
+                                        style={{ fontSize: "16px", fontWeight: "400", textDecoration: "none" }}
                                     >
                                         {item.title}
                                     </Link>
                                 ))}
                             </div>
                         ))}
+                    </div>
+                </div>
+                <div className='col-lg-1'></div>
+
+                <div className='col-lg-2'>
+                    <a href="/" className="flex items-center">
+                        <Image
+                            src="/svg/logo_black.svg"
+                            className="h-full mr-3"
+                            width={40}
+                            height={40}
+                            alt="Logo"
+                        />
+                    </a>
+                    <p className='text-base text-black mt-4'>
+                        Canmart 2023 <br />
+                        All rights reserved &copy;
+                    </p>
+                    <div className='d-flex mt-4'>
+                        {
+                            socialList?.map((item, indx) => {
+                                return (
+                                    <a href="/" className="flex items-center" key={indx}>
+                                        <Image
+                                            src={item?.icon}
+                                            className="h-full mr-1"
+                                            width={22}
+                                            height={16}
+                                            alt="Logo"
+                                        />
+                                    </a>
+                                );
+                            })
+                        }
                     </div>
                 </div>
             </div>

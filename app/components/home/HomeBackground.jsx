@@ -27,11 +27,19 @@ const HomeBackground = () => {
                     </div>
 
                     <div className="d-flex justify-content-center h-100">
-                        <div className="searchbar col-lg-5 col-md-5 col-sm-9 col-10">
-                            <input className="search_input col-lg-9 col-md-9 col-sm-9 col-8" type="text" name="" placeholder="Search..."
-                                style={{ width: "70%" }}
+                        <div className="searchbar col-lg-5 col-md-5 col-sm-9 col-10 d-flex">
+                            <Image
+                                src="/svg/search.svg"
+                                alt="search"
+                                className="ml-2"
+                                width={24} height={24}
+                            // style={{ position: "absolute", left: "0px" }}
                             />
-                            <a href="#" className="search_icon col-lg-3 col-md-3 col-sm-3 col-3">
+                            <input className="search_input col-lg-9 col-md-9 col-sm-9 col-8"
+                                type="text" name="search" placeholder="Search product or service name"
+                                style={{ width: "70%", background: "/svg/search.svg" }}
+                            />
+                            <a href="#" className="search_icon col-lg-3 col-md-3 col-sm-3 col-3 text-black">
                                 Search
                             </a>
                         </div>
@@ -48,10 +56,11 @@ const contentStyles = {
 
 const subTitleStyle = {
     fontSize: 18,
-    fontWeight: "500",
+    fontWeight: "300",
     color: "#FFF",
     textAlign: "center",
-    alignSelf: "center"
+    alignSelf: "center",
+    letterSpacing: "0.6px"
 }
 
 const useStyles = makeStyles((theme) => ({

@@ -49,7 +49,7 @@ export default function NextBusinessOpportunity() {
     return (
         <div style={{ backgroundColor: "#EDF0F5" }} className='mt-20'>
             <div className='py-5 col-lg-11 col-md-11 col-sm-11 col-12 mx-auto'>
-                <h4 className='mb-4' style={{ fontSize: "32px", fontWeight: "600" }}>
+                <h4 className='mb-4 ml-2' style={{ fontSize: "28px", fontWeight: "700" }}>
                     Discover your next business opportunity
                 </h4>
 

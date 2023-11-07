@@ -17,7 +17,7 @@ export default function HomeListing() {
 
     return (
         <div className='pt-24 '>
-            <h4 className='mb-4' style={{ fontSize: "32px", fontWeight: "600" }}>Featured Products</h4>
+            <h4 className='mb-4 ml-2' style={{ fontSize: "28px", fontWeight: "700" }}>Featured Products</h4>
 
             <div className="
                 grid 

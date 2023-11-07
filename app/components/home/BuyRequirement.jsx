@@ -1,12 +1,14 @@
 "use client"
 import Image from 'next/image';
 import React, { useState } from 'react'
+import CountrySelect from '../inputs/CountrySelect';
 
 export default function BuyRequirement() {
     const [productName, setProductName] = useState("");
     const [name, setName] = useState("");
     const [mobile, setMobile] = useState("");
     const [about, setAbout] = useState("");
+    const [location, setLocation] = useState("");
 
     return (
         <div className="row mx-auto py-5" style={{ backgroundColor: "#F0F1F3", marginTop: "80px" }}>
@@ -45,14 +47,22 @@ export default function BuyRequirement() {
                 />
 
                 <label style={labelStyle}>Mobile Number *</label>
-                <input
-                    type="text"
-                    placeholder='+91'
-                    value={mobile}
-                    onChange={(e) => { setMobile(e?.target?.value) }}
-                    className='form-control'
-                    style={inputTextStyle}
-                />
+                <div className="d-flex mt-1">
+                    <CountrySelect
+                        value={location}
+                        onChange={(value) => {
+                            setLocation(value)
+                        }}
+                    />
+                    <input
+                        type="text"
+                        value={mobile}
+                        placeholder="+91"
+                        onChange={(e) => { setMobile(e.target.value) }}
+                        // style={error ? inputErrorStyle : inputStyle}
+                        className={"form-control ml-2"}
+                    />
+                </div>
 
                 <label style={labelStyle}>Tell us about your requirement</label>
                 <textarea

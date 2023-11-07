@@ -1,17 +1,32 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getCookie, setCookie, deleteCookie } from "cookies-next";
+import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 const Navbar = ({ text }) => {
   const router = useRouter();
-  const userData = getCookie("userData");
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    router.push("/dashboard")
+    setAnchorEl(null);
+  };
+  const handleCloseDashboard = () => {
+    router.push("/")
+    setAnchorEl(null);
+  };
 
-  console.log("\n\n Userdata in navbar: ", userData);
+  const userData = getCookie("userData");
 
   const handleLogout = () => {
     deleteCookie('userData');
-    // router.refresh();
   }
 
   const isCurrentUser = () => {
@@ -28,7 +43,7 @@ const Navbar = ({ text }) => {
       style={{ backgroundColor: "transparent" }}
     >
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-4 p-3">
-        <a href="https://flowbite.com/" className="flex items-center">
+        <a href="/" className="flex items-center">
           {/* <Image
             src="/qpqpq.png"
             className="h-full mr-3"
@@ -43,7 +58,6 @@ const Navbar = ({ text }) => {
             height={40}
             alt="Flowbite Logo"
           />
-          {/* <img src="https://flowbite.com/docs/images/logo.svg" className="h-8 mr-3" alt="Flowbite Logo" /> */}
         </a>
         <button
           data-collapse-toggle="navbar-default"
@@ -75,32 +89,54 @@ const Navbar = ({ text }) => {
             ? <div className="flex justify-center items-center space-x-10">
               <Link href="/login" className="flex space-x-3 spantext items-center " onClick={handleLogout}>
                 <Image src="/svg/logout.svg" width={16} height={16} alt="Profile Icon" />
-                <div>
-                  <span className="text-[16px] text-white font-semibold">
-                    Logout
-                  </span>
-                </div>
+                <span className="text-[16px] text-white font-semibold">
+                  Logout
+                </span>
               </Link>
-              <div>
-                <Link href="/dashboard" className="hover:bg-[#858282] flex space-x-3 bg-white spantext text-[16px] font-semibold text-black rounded-full px-4 py-2 items-center">
-                  Dashboard
-                </Link>
-              </div>
+              {/* <Link href="/dashboard" className="hover:bg-[#858282] flex space-x-3 bg-white spantext text-[16px] font-semibold text-black rounded-full px-4 py-2 items-center">
+                Dashboard
+              </Link> */}
+              <Button
+                id="basic-button"
+                aria-controls={open ? 'basic-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? 'true' : undefined}
+                onClick={handleClick}
+              >
+                <Image src="/images/avatar.png" width={38} height={38} alt="Profile Icon" className="" />
+              </Button>
+              <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                MenuListProps={{
+                  'aria-labelledby': 'basic-button',
+                }}
+              >
+                <MenuItem onClick={handleCloseDashboard}>
+                  <Image src="/images/menu1.png" width={25} height={25} alt="Dashboard Menu" className="mr-3" />
+                  Dashboards
+                </MenuItem>
+                <MenuItem onClick={handleClose}>
+                  <Image src="/images/menu2.png" width={25} height={25} alt="Profile Menu" className="mr-3" />
+                  Profile
+                </MenuItem>
+              </Menu>
+              {/* <Link href="/login" className="flex space-x-3 spantext items-center " onClick={handleLogout}>
+                <Image src="/images/avatar.png" width={38} height={38} alt="Profile Icon" className="" />
+              </Link> */}
             </div>
             : <div className="flex justify-center items-center space-x-10">
               <Link href="/login" className="flex space-x-3 spantext items-center ">
                 <Image src="/svg/login.svg" width={20} height={20} alt="Profile Icon" className="" />
-                <div>
-                  <span className="text-[16px] text-white font-semibold">
-                    Login
-                  </span>
-                </div>
+                <span className="text-[16px] text-white font-semibold">
+                  Login
+                </span>
               </Link>
-              <div>
-                <Link href="/signup" className="hover:bg-[#858282] flex space-x-3 bg-white spantext text-[16px] font-semibold text-black rounded-full px-4 py-2 items-center">
-                  Signup
-                </Link>
-              </div>
+              <Link href="/signup" className="hover:bg-[#858282] flex space-x-3 bg-white spantext text-[16px] font-semibold text-black rounded-full px-4 py-2 items-center">
+                Signup
+              </Link>
             </div>}
         </div>
       </div>

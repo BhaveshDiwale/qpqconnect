@@ -70,7 +70,7 @@ export default function LoginPage() {
             .then((confirmationResult) => {
                 window.confirmationResult = confirmationResult;
                 setShowOtpForm(true);
-                setLoading(false);
+                // setLoading(false);
                 setCodeResult(confirmationResult)
             })
             .catch((error) => {

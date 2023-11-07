@@ -7,7 +7,7 @@ import React from 'react'
 export default function TrendingCategories() {
     return (
         <div className='mt-20'>
-            <h4 className='mb-4' style={{ fontSize: "32px", fontWeight: "600" }}>Trending Categories</h4>
+            <h4 className='mb-4' style={{ fontSize: "28px", fontWeight: "700" }}>Trending Categories</h4>
             <div className="row mx-auto">
                 {HomeCategoriesList.map((item, indx) => {
                     return (

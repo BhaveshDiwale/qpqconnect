@@ -26,7 +26,7 @@ const CountrySelect = ({
 
     return (
         <Select
-            placeholder="🇮🇳"
+            placeholder="US"
             options={getAll()}
             value={value}
             onChange={(value) => onChange(value)}
@@ -45,7 +45,8 @@ const CountrySelect = ({
                 control: (base) => ({
                     width: "55px",
                     height: "38px",
-                    borderRadius: "4px"
+                    borderRadius: "4px",
+                    backgroundColor: "#fff"
                 }),
                 input: (base) => ({
                     ...base,

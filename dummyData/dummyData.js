@@ -172,6 +172,8 @@ export const footerLinks = [
             { title: "Featured", url: "/" },
             { title: "Partnership", url: "/" },
             { title: "Bussiness Relation", url: "/" },
+            { title: "Featured", url: "/" },
+            { title: "Partnership", url: "/" },
         ],
     },
     {
@@ -180,7 +182,6 @@ export const footerLinks = [
             { title: "Events", url: "/" },
             { title: "Blog", url: "/" },
             { title: "Podcast", url: "/" },
-            { title: "Invite a friend", url: "/" },
         ],
     },
     {
@@ -188,6 +189,8 @@ export const footerLinks = [
         links: [
             { title: "Discord", url: "/" },
             { title: "Instagram", url: "/" },
+            { title: "Twitter", url: "/" },
+            { title: "Facebook", url: "/" },
             { title: "Twitter", url: "/" },
             { title: "Facebook", url: "/" },
         ],

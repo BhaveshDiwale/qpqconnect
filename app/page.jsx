@@ -48,7 +48,7 @@ const Home = () => {
                 width={600} height={550}
               />
             </div>
-            <FindSellersByCity />
+            {/* <FindSellersByCity /> */}
 
             <BuyRequirement />
           </div>

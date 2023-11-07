@@ -276,7 +276,7 @@ export async function FetchAllProductsAPI(data: any, callback: Function) {
 
     try {
         const res = await fetch(BASEURL + 'getAllProducts', {
-            method: 'POST',
+            method: 'GET',
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
             },
