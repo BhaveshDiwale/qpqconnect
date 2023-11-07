@@ -41,19 +41,19 @@ export default function ProfilePage() {
 }
 
 const settings = [
-    { name: 'Business Details', nav: "/dashboard/businessDetails" },
-    { name: 'User Management', nav: "/dashboard/userManagement" },
-    { name: 'Tax Information', nav: "/dashboard/taxInformation" },
-    { name: 'Type and Services', nav: "/dashboard/typeAndServices" },
-    { name: 'Admin details', nav: "/dashboard/adminDetails" },
-    { name: 'Add Products', nav: "/dashboard/addProducts" },
-    { name: 'Product List', nav: "/dashboard/productList" },
-    { name: 'RFQ Income', nav: "/dashboard/rfqIncome" },
+    { name: 'Business Details' },
+    { name: 'User Management' },
+    { name: 'Tax Information' },
+    { name: 'Type and Services' },
+    { name: 'Admin details' },
+    { name: 'Add Products' },
+    { name: 'Product List' },
+    { name: 'RFQ Income' },
 ];
 
 const menus = [
-    { name: 'Dashboards', nav: "/dashboard" },
-    { name: 'Logout', nav: "/dashboard/userManagement" },
+    { name: 'Dashboards' },
+    { name: 'Logout' },
 ];
 
 export const DashboardNavbar = () => {
@@ -81,13 +81,19 @@ export const DashboardNavbar = () => {
         router.push("/notifications")
     }
 
+    const returnUserName = () => {
+        if (currentUserData) {
+            return JSON?.parse(currentUserData)?.name
+        }
+    }
+
     return (
         <AppBar position="static" elevation={0}>
             <Container maxWidth="xl" style={{ backgroundColor: "#fff" }}>
                 <Toolbar disableGutters>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         <Link href="/" style={title}>
-                            {JSON.parse(currentUserData)?.name}
+                            {returnUserName()}
                         </Link>
                     </Box>
 
@@ -118,11 +124,12 @@ export const DashboardNavbar = () => {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
-                            {menus.map((setting, key) => (
-                                <MenuItem key={key} onClick={handleCloseUserMenu}>
-                                    <Link href={setting?.nav} style={menuItems}>{setting?.name}</Link>
-                                </MenuItem>
-                            ))}
+                            <MenuItem onClick={handleCloseUserMenu}>
+                                <a href="/dashboard/" style={menuItems}>{menus[0]?.name}</a>
+                            </MenuItem>
+                            <MenuItem onClick={handleCloseUserMenu}>
+                                <a href="/dashboard/" style={menuItems}>{menus[1]?.name}</a>
+                            </MenuItem>
                         </Menu>
                     </Box>
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -155,11 +162,30 @@ export const DashboardNavbar = () => {
                                 display: { xs: 'block', md: 'none' },
                             }}
                         >
-                            {settings.map((setting, key) => (
-                                <MenuItem key={key} onClick={handleCloseUserMenu}>
-                                    <Link href={setting?.nav} style={menuItems}>{setting?.name}</Link>
-                                </MenuItem>
-                            ))}
+                            <MenuItem onClick={handleCloseUserMenu}>
+                                <a href="/dashboard/businessDetail" style={menuItems}>{settings[0]?.name}</a>
+                            </MenuItem>
+                            <MenuItem onClick={handleCloseUserMenu}>
+                                <a href="/dashboard/userManagement" style={menuItems}>{settings[1]?.name}</a>
+                            </MenuItem>
+                            <MenuItem onClick={handleCloseUserMenu}>
+                                <a href="/dashboard/taxInformation" style={menuItems}>{settings[2]?.name}</a>
+                            </MenuItem>
+                            <MenuItem onClick={handleCloseUserMenu}>
+                                <a href="/dashboard/typeServices" style={menuItems}>{settings[3]?.name}</a>
+                            </MenuItem>
+                            <MenuItem onClick={handleCloseUserMenu}>
+                                <a href="/dashboard/adminDetail" style={menuItems}>{settings[4]?.name}</a>
+                            </MenuItem>
+                            <MenuItem onClick={handleCloseUserMenu}>
+                                <a href="/dashboard/addProduct" style={menuItems}>{settings[5]?.name}</a>
+                            </MenuItem>
+                            <MenuItem onClick={handleCloseUserMenu}>
+                                <a href="/dashboard/addProduct" style={menuItems}>{settings[6]?.name}</a>
+                            </MenuItem>
+                            <MenuItem onClick={handleCloseUserMenu}>
+                                <a href="/dashboard/rfqIncome" style={menuItems}>{settings[7]?.name}</a>
+                            </MenuItem>
                         </Menu>
                     </Box>
                 </Toolbar>

@@ -15,11 +15,11 @@ const Navbar = ({ text }) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
-    router.push("/dashboard")
+    router.push("/")
     setAnchorEl(null);
   };
   const handleCloseDashboard = () => {
-    router.push("/")
+    router.push("/dashboard")
     setAnchorEl(null);
   };
 
