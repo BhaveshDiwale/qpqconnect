@@ -6,6 +6,7 @@ import Sidebar from "../components/sidebar/Sidebar";
 import './addProduct.scss'
 import ProductBlock from './components/ProductBlock'
 import ServiceBlock from './components/ServiceBlock'
+import { DashboardNavbar } from '../page';
 
 const AddProduct = () => {
     const [tabType, setTabType] = useState("product");
@@ -13,9 +14,9 @@ const AddProduct = () => {
     return (
         <div className='home'>
             <Sidebar />
-            <div className='homeContainer px-5 py-3'>
-                <div style={title}>Welcome George</div>
-                <div className='d-flex mx-auto'>
+            <div className='homeContainer'>
+                <DashboardNavbar />
+                <div className='d-flex mx-auto my-2 px-5 py-3'>
                     <button className='btn'
                         style={tabType === "product" ? selectedTabStyle : tabStyle}
                         onClick={() => { setTabType('product') }}

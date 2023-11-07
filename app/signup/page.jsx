@@ -63,7 +63,7 @@ export default function SignupPage() {
 
         const appVerifier = window.recaptchaVerifier;
 
-        const formatPh = "+" + '91' + phone;
+        const formatPh = "+" + location + phone;
 
         signInWithPhoneNumber(getAuth(), formatPh, appVerifier)
             .then((confirmationResult) => {

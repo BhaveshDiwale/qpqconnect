@@ -103,7 +103,7 @@ const Navbar = ({ text }) => {
                 aria-expanded={open ? 'true' : undefined}
                 onClick={handleClick}
               >
-                <Image src="/images/avatar.png" width={38} height={38} alt="Profile Icon" className="" />
+                <Image src="/images/avatar.png" width={38} height={38} alt="Profile Icon" />
               </Button>
               <Menu
                 id="basic-menu"
@@ -124,12 +124,12 @@ const Navbar = ({ text }) => {
                 </MenuItem>
               </Menu>
               {/* <Link href="/login" className="flex space-x-3 spantext items-center " onClick={handleLogout}>
-                <Image src="/images/avatar.png" width={38} height={38} alt="Profile Icon" className="" />
+                <Image src="/images/avatar.png" width={38} height={38} alt="Profile Icon" />
               </Link> */}
             </div>
             : <div className="flex justify-center items-center space-x-10">
               <Link href="/login" className="flex space-x-3 spantext items-center ">
-                <Image src="/svg/login.svg" width={20} height={20} alt="Profile Icon" className="" />
+                <Image src="/svg/login.svg" width={20} height={20} alt="Profile Icon" />
                 <span className="text-[16px] text-white font-semibold">
                   Login
                 </span>

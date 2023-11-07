@@ -64,7 +64,7 @@ export default function LoginPage() {
 
         const appVerifier = window.recaptchaVerifier;
 
-        const formatPh = "+" + '91' + phone;
+        const formatPh = "+" + location?.dial_code?.toString() + phone;
 
         signInWithPhoneNumber(getAuth(), formatPh, appVerifier)
             .then((confirmationResult) => {

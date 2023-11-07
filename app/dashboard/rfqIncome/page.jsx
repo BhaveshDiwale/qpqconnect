@@ -20,6 +20,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import Sidebar from "../components/sidebar/Sidebar";
 import './rfqIncome.scss'
+import { DashboardNavbar } from '../page';
 
 function createData(product, id, customer, date, amount, method, status) {
     return { product, id, customer, date, amount, method, status };
@@ -121,7 +122,6 @@ function EnhancedTableHead(props) {
     return (
         <TableHead>
             <TableRow>
-
                 {headCells.map((headCell) => (
                     <TableCell
                         key={headCell.id}
@@ -293,15 +293,8 @@ export default function DashboardTable() {
         <div className="home">
             <Sidebar />
             <div className="homeContainer">
-                <Typography
-                    sx={{ flex: '1 1 100%', fontWeight: 'bold', margin: 2 }}
-                    variant="h4"
-                    id="tableTitle"
-                    component="div"
-                >
-                    Welcome Gorge
-                </Typography>
-                <Box sx={{ width: '100%', padding: '50px' }}>
+                <DashboardNavbar />
+                <Box sx={{ width: '100%', padding: '32px' }}>
                     <Paper sx={{ width: '100%', mb: 2 }}>
                         <EnhancedTableToolbar numSelected={selected.length} />
                         <TableContainer>

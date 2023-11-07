@@ -7,6 +7,7 @@ import './businessDetail.scss'
 import Image from 'next/image';
 import { addBusinessDetailsAPI } from '../../../apis/API';
 import { getCookie } from "cookies-next";
+import { DashboardNavbar } from '../page';
 
 const BusinessDetail = () => {
     const [companyName, setCompanyName] = useState("");
@@ -53,116 +54,118 @@ const BusinessDetail = () => {
     return (
         <div className='home'>
             <Sidebar />
-            <div className='homeContainer px-5 py-3'>
-                <div style={title}>Welcome George</div>
-                <div className='shadow-sm rounded-xl px-4 py-3 mt-4'>
-                    <form>
-                        <div className='row'>
-                            <div className='col-12 col-md-6'>
-                                <div className="form-group mb-2 pb-1">
-                                    <label style={labelStyles}>Company Name</label>
-                                    <input
-                                        type="text"
-                                        value={companyName}
-                                        placeholder="Type name here. . ."
-                                        onChange={(e) => { setCompanyName(e.target.value) }}
-                                        style={inputStyle}
-                                        className="form-control aboutInput"
-                                    />
+            <div className='homeContainer'>
+                <DashboardNavbar />
+                <div className='px-3 py-3'>
+                    <div className='shadow-sm rounded-xl px-4 py-3 mt-4'>
+                        <form>
+                            <div className='row'>
+                                <div className='col-12 col-md-6'>
+                                    <div className="form-group mb-2 pb-1">
+                                        <label style={labelStyles}>Company Name</label>
+                                        <input
+                                            type="text"
+                                            value={companyName}
+                                            placeholder="Type name here. . ."
+                                            onChange={(e) => { setCompanyName(e.target.value) }}
+                                            style={inputStyle}
+                                            className="form-control aboutInput"
+                                        />
+                                    </div>
+                                    <div className="form-group mb-2 pb-1">
+                                        <label style={labelStyles}>Phone Number</label>
+                                        <input
+                                            type="number"
+                                            value={phone}
+                                            placeholder="Enter Phone Number"
+                                            onChange={(e) => { setPhone(e.target.value) }}
+                                            style={inputStyle}
+                                            className="form-control aboutInput"
+                                        />
+                                    </div>
+                                    <div className="form-group mb-2 pb-1">
+                                        <label style={labelStyles}>Address</label>
+                                        <textarea
+                                            placeholder="Type Here... "
+                                            value={address}
+                                            onChange={(e) => { setAddress(e.target.value) }}
+                                            style={textAreaInputStyle}
+                                            className="form-control aboutInput"
+                                        />
+                                    </div>
                                 </div>
-                                <div className="form-group mb-2 pb-1">
-                                    <label style={labelStyles}>Phone Number</label>
-                                    <input
-                                        type="number"
-                                        value={phone}
-                                        placeholder="Enter Phone Number"
-                                        onChange={(e) => { setPhone(e.target.value) }}
-                                        style={inputStyle}
-                                        className="form-control aboutInput"
-                                    />
-                                </div>
-                                <div className="form-group mb-2 pb-1">
-                                    <label style={labelStyles}>Address</label>
-                                    <textarea
-                                        placeholder="Type Here... "
-                                        value={address}
-                                        onChange={(e) => { setAddress(e.target.value) }}
-                                        style={textAreaInputStyle}
-                                        className="form-control aboutInput"
-                                    />
+                                <div className='col-12 col-md-6'>
+                                    <div className="form-group mb-2 pb-1">
+                                        <label style={labelStyles}>City</label>
+                                        <input
+                                            type="text"
+                                            placeholder="Enter City Here"
+                                            value={city}
+                                            onChange={(e) => { setCity(e.target.value) }}
+                                            style={inputStyle}
+                                            className="form-control aboutInput"
+                                        />
+                                    </div>
+                                    <div className="form-group mb-2 pb-1">
+                                        <label style={labelStyles}>Province</label>
+                                        <input
+                                            type="text"
+                                            placeholder="Lorem"
+                                            value={province}
+                                            onChange={(e) => { setProvince(e.target.value) }}
+                                            style={inputStyle}
+                                            className="form-control aboutInput"
+                                        />
+                                    </div>
+                                    <div className="form-group mb-2 pb-1">
+                                        <label style={labelStyles}>Country</label>
+                                        <input
+                                            type="text"
+                                            placeholder="Country"
+                                            value={country}
+                                            onChange={(e) => { setCountry(e.target.value) }}
+                                            style={inputStyle}
+                                            className="form-control aboutInput"
+                                        />
+                                    </div>
                                 </div>
                             </div>
-                            <div className='col-12 col-md-6'>
-                                <div className="form-group mb-2 pb-1">
-                                    <label style={labelStyles}>City</label>
-                                    <input
-                                        type="text"
-                                        placeholder="Enter City Here"
-                                        value={city}
-                                        onChange={(e) => { setCity(e.target.value) }}
-                                        style={inputStyle}
-                                        className="form-control aboutInput"
-                                    />
-                                </div>
-                                <div className="form-group mb-2 pb-1">
-                                    <label style={labelStyles}>Province</label>
-                                    <input
-                                        type="text"
-                                        placeholder="Lorem"
-                                        value={province}
-                                        onChange={(e) => { setProvince(e.target.value) }}
-                                        style={inputStyle}
-                                        className="form-control aboutInput"
-                                    />
-                                </div>
-                                <div className="form-group mb-2 pb-1">
-                                    <label style={labelStyles}>Country</label>
-                                    <input
-                                        type="text"
-                                        placeholder="Country"
-                                        value={country}
-                                        onChange={(e) => { setCountry(e.target.value) }}
-                                        style={inputStyle}
-                                        className="form-control aboutInput"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
-                <div className='shadow-sm rounded-xl mt-4 p-4'>
-                    <div style={title}>Company media</div>
-
-                    <div className='row mx-auto'>
-                        <div className='col-md-6 col-lg-6 col-sm-10 col-12 mx-auto pl-0'>
-                            <RenderPickerBox
-                                title="Photo"
-                                buttonText="Add Photo"
-                                files={photo}
-                                setFiles={setPhoto}
-                            />
-                        </div>
-                        <div className='col-md-6 col-lg-6 col-sm-10 col-12 mx-auto pr-0'>
-                            <RenderPickerBox
-                                title="Other Image"
-                                buttonText="Add Photo"
-                                files={otherImage}
-                                setFiles={setOtherImage}
-                            />
-                        </div>
+                        </form>
                     </div>
-                    <RenderPickerBox
-                        title="Video"
-                        buttonText="Add Video"
-                        files={video}
-                        setFiles={setVideo}
-                    />
-                </div>
 
-                <button className='btn btn-dark col-lg-12 col-md-12 col-sm-12 col-12 mx-auto py-3 mt-4' onClick={handleSubmit}>
-                    Submit
-                </button>
+                    <div className='shadow-sm rounded-xl mt-4 p-4'>
+                        <div style={title}>Company media</div>
+
+                        <div className='row mx-auto'>
+                            <div className='col-md-6 col-lg-6 col-sm-10 col-12 mx-auto pl-0'>
+                                <RenderPickerBox
+                                    title="Photo"
+                                    buttonText="Add Photo"
+                                    files={photo}
+                                    setFiles={setPhoto}
+                                />
+                            </div>
+                            <div className='col-md-6 col-lg-6 col-sm-10 col-12 mx-auto pr-0'>
+                                <RenderPickerBox
+                                    title="Other Image"
+                                    buttonText="Add Photo"
+                                    files={otherImage}
+                                    setFiles={setOtherImage}
+                                />
+                            </div>
+                        </div>
+                        <RenderPickerBox
+                            title="Video"
+                            buttonText="Add Video"
+                            files={video}
+                            setFiles={setVideo}
+                        />
+                    </div>
+
+                    <button className='btn btn-dark col-lg-12 col-md-12 col-sm-12 col-12 mx-auto py-2 mt-4' onClick={handleSubmit}>
+                        Submit
+                    </button>
+                </div>
             </div>
         </div>
     )

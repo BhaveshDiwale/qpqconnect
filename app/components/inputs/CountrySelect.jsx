@@ -3,6 +3,7 @@
 import Select from 'react-select'
 
 import useCountries from '../../../app/hooks/useCountries';
+import { Countries } from '../../../dummyData/Countries';
 
 // export type CountrySelectValue = {
 //     flag: string;
@@ -19,7 +20,7 @@ const CountrySelect = ({
     const { getAll } = useCountries();
 
     const DropdownIndicator = ({ children, ...props }) => (
-        <div style={{ color: "#0A0A0A", fontSize: "10px", marginRight: "8px", marginTop: "4px" }}>
+        <div style={{ color: "#0A0A0A", fontSize: "10px", marginRight: "8px", marginTop: "3px" }}>
             ▼
         </div>
     );
@@ -27,7 +28,7 @@ const CountrySelect = ({
     return (
         <Select
             placeholder="US"
-            options={getAll()}
+            options={Countries}
             value={value}
             onChange={(value) => onChange(value)}
             formatOptionLabel={(option) => (
@@ -46,12 +47,13 @@ const CountrySelect = ({
                     width: "55px",
                     height: "38px",
                     borderRadius: "4px",
-                    backgroundColor: "#fff"
+                    backgroundColor: "#fff",
+                    paddingLeft: "4px"
                 }),
                 input: (base) => ({
                     ...base,
                     fontSize: "14px",
-                    width: "50px",
+                    // width: "55px",
                 }),
                 indicatorSeparator: () => ({
                     width: 0,
@@ -59,9 +61,9 @@ const CountrySelect = ({
                 }),
                 placeholder: (base) => ({
                     ...base,
-                    fontSize: "18px",
+                    fontSize: "14px",
                     marginLeft: "1px",
-                    marginTop: "-2px"
+                    marginTop: "1.4px",
                 }),
                 menu: (base) => ({
                     ...base,
@@ -72,8 +74,17 @@ const CountrySelect = ({
                     marginTop: "9px",
                     marginLeft: 0,
                 }),
-                // container: () => ({
-                //     // width: "100px"
+                singleValue: (base) => ({
+                    ...base,
+                    width: "55px",
+                }),
+                // valueContainer: (base) => ({
+                //     ...base,
+                // }),
+                // container: (base) => ({
+                //     ...base,
+                //     width: "35px",
+                //     marginLeft: "10px"
                 // })
             }}
         />

@@ -12,6 +12,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import "bootstrap/dist/css/bootstrap.min.css";
 import Typography from "@mui/material/Typography";
+import { DashboardNavbar } from '../page';
 
 
 const rows = [
@@ -56,47 +57,49 @@ const AdminDetail = () => {
     return (
         <div className='home'>
             <Sidebar />
-            <div className='homeContainer p-3'>
-                <Typography
+            <div className='homeContainer'>
+                <DashboardNavbar />
+                {/* <Typography
                     sx={{ flex: '1 1 100%', fontWeight: 'bold', margin: 2 }}
                     variant="h4"
                     id="tableTitle"
                     component="div"
                 >
                     Dashboard
-                </Typography>
-                <TableContainer component={Paper} className="table">
-
-                    <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell colSpan={4} className="tableCell fw-bold custom-header-cell">
-                                    Admin Details
-                                </TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableCell className="tableCell fw-bold ml-5">Profile</TableCell>
-                                <TableCell className="tableCell fw-bold text-center">Name</TableCell>
-                                <TableCell className="tableCell fw-bold text-center">Role</TableCell>
-                                <TableCell className="tableCell fw-bold text-center">Phone Number</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {rows.map((row) => (
-                                <TableRow key={row.id}>
-                                    <TableCell className="tableCell">
-                                        <div className="cellWrapper">
-                                            <img src={row.img} alt="" className="image" />
-                                        </div>
+                </Typography> */}
+                <div className='p-3'>
+                    <TableContainer component={Paper} className="table">
+                        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell colSpan={4} className="tableCell fw-bold custom-header-cell">
+                                        Admin Details
                                     </TableCell>
-                                    <TableCell className="tableCell text-center">{row.customer}</TableCell>
-                                    <TableCell className="tableCell text-center">{row.role}</TableCell>
-                                    <TableCell className="tableCell text-center">{row.phone}</TableCell>
                                 </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+                                <TableRow>
+                                    <TableCell className="tableCell fw-bold ml-5">Profile</TableCell>
+                                    <TableCell className="tableCell fw-bold text-center">Name</TableCell>
+                                    <TableCell className="tableCell fw-bold text-center">Role</TableCell>
+                                    <TableCell className="tableCell fw-bold text-center">Phone Number</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {rows.map((row) => (
+                                    <TableRow key={row.id}>
+                                        <TableCell className="tableCell">
+                                            <div className="cellWrapper">
+                                                <img src={row.img} alt="" className="image" />
+                                            </div>
+                                        </TableCell>
+                                        <TableCell className="tableCell text-center">{row.customer}</TableCell>
+                                        <TableCell className="tableCell text-center">{row.role}</TableCell>
+                                        <TableCell className="tableCell text-center">{row.phone}</TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </div>
             </div>
         </div>
     );

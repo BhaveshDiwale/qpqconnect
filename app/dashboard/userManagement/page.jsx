@@ -9,6 +9,7 @@ import { addUserAPI, getUserProfileAPI } from '../../../apis/API';
 
 import Select from 'react-select';
 import { getCookie } from 'cookies-next';
+import { DashboardNavbar } from '../page';
 
 const options = [
     { value: 'manager', label: 'Manager' },
@@ -56,10 +57,6 @@ const UserManagement = () => {
             if (res !== null) {
                 if (res?.status?.toString() === "true") {
                     setUserData(res?.data[0]);
-                } else if (res?.status?.toString() === "false") {
-                    alert(res?.message?.toString());
-                } else {
-                    alert("Something went wrong");
                 }
             }
         })
@@ -96,135 +93,137 @@ const UserManagement = () => {
     return (
         <div className='home'>
             <Sidebar />
-            <div className='homeContainer px-5 py-3'>
-                <div style={title}>Welcome George</div>
-                <h4 style={subTitle} className='mt-4 pt-1'>Admin profile</h4>
-                <div className='col-12 col-md-12'>
-                    <div className='shadow-sm rounded-xl px-4 py-3 mt-2'>
-                        <form>
-                            <div className="form-group mb-2 pb-1">
-                                <label style={labelStyles}>User name</label>
-                                <input
-                                    type="text"
-                                    placeholder="Enter Name"
-                                    onChange={(e) => { }}
-                                    style={inputStyle}
-                                    value={userData?.name}
-                                    className="form-control aboutInput"
-                                />
-                            </div>
-                            <div className="form-group mb-2 pb-1">
-                                <label style={labelStyles}>Mobile Number</label>
-                                <input
-                                    type="number"
-                                    placeholder="Mobile Number"
-                                    onChange={(e) => { }}
-                                    style={inputStyle}
-                                    value={userData?.mobile}
-                                    className="form-control aboutInput"
-                                />
-                            </div>
-                            <div className="form-group mb-2 pb-1">
-                                <label style={labelStyles}>User Role</label>
-                                <input
-                                    type="text"
-                                    placeholder="Enter User Role"
-                                    onChange={(e) => { }}
-                                    style={inputStyle}
-                                    value={userData?.role}
-                                    className="form-control aboutInput"
-                                />
-                            </div>
-                        </form>
+            <div className='homeContainer'>
+                <DashboardNavbar />
+                <div className='px-4'>
+                    <h4 style={subTitle} className='mt-4 pt-1'>Admin profile</h4>
+                    <div className='col-12 col-md-12'>
+                        <div className='shadow-sm rounded-xl px-4 py-3 mt-2'>
+                            <form>
+                                <div className="form-group mb-2 pb-1">
+                                    <label style={labelStyles}>User name</label>
+                                    <input
+                                        type="text"
+                                        placeholder="Enter Name"
+                                        onChange={(e) => { }}
+                                        style={inputStyle}
+                                        value={userData?.name}
+                                        className="form-control aboutInput"
+                                    />
+                                </div>
+                                <div className="form-group mb-2 pb-1">
+                                    <label style={labelStyles}>Mobile Number</label>
+                                    <input
+                                        type="number"
+                                        placeholder="Mobile Number"
+                                        onChange={(e) => { }}
+                                        style={inputStyle}
+                                        value={userData?.mobile}
+                                        className="form-control aboutInput"
+                                    />
+                                </div>
+                                <div className="form-group mb-2 pb-1">
+                                    <label style={labelStyles}>User Role</label>
+                                    <input
+                                        type="text"
+                                        placeholder="Enter User Role"
+                                        onChange={(e) => { }}
+                                        style={inputStyle}
+                                        value={userData?.role}
+                                        className="form-control aboutInput"
+                                    />
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                </div>
 
-                <h4 style={subTitle} className='mt-4 pt-1'>Add User</h4>
-                <div className='col-12 col-md-12'>
-                    <div className='shadow-sm rounded-xl px-4 py-3 mt-2'>
-                        <form>
-                            <div className="form-group mb-2 pb-1">
-                                <label style={labelStyles}>Name</label>
-                                <input
-                                    type="text"
-                                    placeholder="Enter Name"
-                                    onChange={(e) => { setName(e.target.value) }}
-                                    style={inputStyle}
-                                    value={name}
-                                    className="form-control aboutInput"
-                                />
-                            </div>
-                            <div className="form-group mb-2 pb-1">
-                                <label style={labelStyles}>Email address</label>
-                                <input
-                                    type="email"
-                                    placeholder="Enter email"
-                                    onChange={(e) => { setEmail(e.target.value) }}
-                                    style={inputStyle}
-                                    value={email}
-                                    className="form-control aboutInput"
-                                />
-                            </div>
-                            <div className="form-group mb-2 pb-1">
-                                <label style={labelStyles}>Mobile Number</label>
-                                <input
-                                    type="number"
-                                    placeholder="Mobile Number"
-                                    onChange={(e) => { setPhone(e.target.value) }}
-                                    style={inputStyle}
-                                    value={phone}
-                                    className="form-control aboutInput"
-                                />
-                            </div>
+                    <h4 style={subTitle} className='mt-4 pt-1'>Add User</h4>
+                    <div className='col-12 col-md-12'>
+                        <div className='shadow-sm rounded-xl px-4 py-3 mt-2'>
+                            <form>
+                                <div className="form-group mb-2 pb-1">
+                                    <label style={labelStyles}>Name</label>
+                                    <input
+                                        type="text"
+                                        placeholder="Enter Name"
+                                        onChange={(e) => { setName(e.target.value) }}
+                                        style={inputStyle}
+                                        value={name}
+                                        className="form-control aboutInput"
+                                    />
+                                </div>
+                                <div className="form-group mb-2 pb-1">
+                                    <label style={labelStyles}>Email address</label>
+                                    <input
+                                        type="email"
+                                        placeholder="Enter email"
+                                        onChange={(e) => { setEmail(e.target.value) }}
+                                        style={inputStyle}
+                                        value={email}
+                                        className="form-control aboutInput"
+                                    />
+                                </div>
+                                <div className="form-group mb-2 pb-1">
+                                    <label style={labelStyles}>Mobile Number</label>
+                                    <input
+                                        type="number"
+                                        placeholder="Mobile Number"
+                                        onChange={(e) => { setPhone(e.target.value) }}
+                                        style={inputStyle}
+                                        value={phone}
+                                        className="form-control aboutInput"
+                                    />
+                                </div>
 
-                            <div className="form-group mb-2 pb-1">
-                                <label style={labelStyles}>User Role</label>
-                                <Select
-                                    onChange={(e) => setRole(e?.value)}
-                                    options={options}
-                                    formatGroupLabel={formatGroupLabel}
-                                    placeholder="Role"
-                                    defaultValue={role}
-                                    styles={{
-                                        input: (base) => ({
-                                            ...base,
-                                            fontSize: "13px",
-                                            color: "#000",
-                                            fontWeight: "600",
-                                        }),
-                                        menu: (base) => ({
-                                            ...base,
-                                            fontSize: "13px",
-                                        }),
-                                        container: (base) => ({
-                                            width: "100%",
-                                            border: "1px solid #E4E7E9",
-                                            borderRadius: "4px",
-                                            backgroundColor: "#F9F9FC",
-                                            fontSize: "13px",
-                                        }),
-                                        control: (base) => ({
-                                            ...base,
-                                            // width: "100%",
-                                            border: "0px",
-                                            // borderRadius: "4px",
-                                            backgroundColor: "#F9F9FC",
-                                            height: "24px",
-                                            // fontSize: "13px",
-                                        }),
-                                    }}
-                                />
-                            </div>
+                                <div className="form-group mb-2 pb-1">
+                                    <label style={labelStyles}>User Role</label>
+                                    <Select
+                                        onChange={(e) => setRole(e?.value)}
+                                        options={options}
+                                        formatGroupLabel={formatGroupLabel}
+                                        placeholder="Role"
+                                        defaultValue={role}
+                                        styles={{
+                                            input: (base) => ({
+                                                ...base,
+                                                fontSize: "13px",
+                                                color: "#000",
+                                                fontWeight: "600",
+                                            }),
+                                            menu: (base) => ({
+                                                ...base,
+                                                fontSize: "13px",
+                                            }),
+                                            container: (base) => ({
+                                                width: "100%",
+                                                border: "1px solid #E4E7E9",
+                                                borderRadius: "4px",
+                                                backgroundColor: "#F9F9FC",
+                                                fontSize: "13px",
+                                            }),
+                                            control: (base) => ({
+                                                ...base,
+                                                // width: "100%",
+                                                border: "0px",
+                                                // borderRadius: "4px",
+                                                backgroundColor: "#F9F9FC",
+                                                height: "24px",
+                                                // fontSize: "13px",
+                                            }),
+                                        }}
+                                    />
+                                </div>
 
-                            <button className='btn btn-dark col-lg-12 col-md-12 col-sm-12 col-12 mx-auto py-3 mt-2' onClick={handleSubmit}>
-                                Submit
-                            </button>
-                        </form>
+                                <button className='btn btn-dark col-lg-12 col-md-12 col-sm-12 col-12 mx-auto py-3 mt-2' onClick={handleSubmit}>
+                                    Submit
+                                </button>
+                            </form>
+                        </div>
                     </div>
-                </div>
 
-                <div className="mt-4 pt-4">
-                    <UserListingTable />
+                    <div className="mt-4 pt-4">
+                        <UserListingTable />
+                    </div>
                 </div>
             </div>
         </div>

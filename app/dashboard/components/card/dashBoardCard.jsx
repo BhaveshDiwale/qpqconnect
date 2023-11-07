@@ -25,7 +25,6 @@ const DashBoardCard = () => {
     ]
     return (
         <div className='p-4'>
-            <div style={title}>Welcome Gorge</div>
             <div className='container row mx-auto p-2 rounded pb-3 mt-4' style={{ border: "1px solid #F4F4F4" }}>
                 <div className='col-md-4 col-12'>
                     <div className="shadow-sm rounded p-4 desktop-card mt-2">
@@ -106,12 +105,6 @@ const DashBoardCard = () => {
         </div>
     );
 };
-
-const title = {
-    fontSize: "24px",
-    color: "#000",
-    fontWeight: "800",
-}
 
 const companyDetail = {
     fontSize: "18px",
